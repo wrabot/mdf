@@ -1,0 +1,4 @@
+3 3
+citron avocat
+courgette citron
+avocat courgette

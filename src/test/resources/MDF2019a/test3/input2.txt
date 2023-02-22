@@ -1,0 +1,16 @@
+10 15
+reine-claude combava
+nefle-du-japon citrouille
+nefle-du-japon grenade
+bigarade reine-claude
+grenade pomelos
+bleuet maracudja
+nefle-du-japon fe-i
+bigarade combava
+grenade nefle-du-japon
+bigarade nefle-du-japon
+reine-claude bleuet
+reine-claude nefle-du-japon
+fe-i reine-claude
+fe-i bleuet
+maracudja pomelos
