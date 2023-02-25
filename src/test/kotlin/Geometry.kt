@@ -1,16 +1,30 @@
-import kotlin.math.sqrt
-
 data class PointF(val x: Float, val y: Float) {
     operator fun minus(other: PointF) = PointF(x - other.x, y - other.y)
     operator fun plus(other: PointF) = PointF(x + other.x, y + other.y)
     operator fun times(other: Float) = PointF(x * other, y * other)
     operator fun div(other: Float) = PointF(x / other, y / other)
-    fun distance(other: PointF) = (this - other).run { sqrt(norm2()) }
+    fun distance(other: PointF) = (this - other).run { kotlin.math.sqrt(norm2()) }
     fun norm2() = x * x + y * y
 }
 
 data class Disk(val center: PointF, val radius: Float) {
     operator fun contains(point: PointF) = center.distance(point) <= radius
+}
+
+// Welzl's algorithm
+fun smallestCircle(points: List<PointF>, r: List<PointF>): Disk? {
+    val point = points.firstOrNull()
+    if (point == null || r.size == 3) {
+        return when (r.size) {
+            0 -> null
+            1 -> Disk(r[0], 0f)
+            2 -> Disk((r[0] + r[1]) / 2f, r[0].distance(r[1]) / 2)
+            else -> circumscribedCircle(r[0], r[1], r[2])
+        }
+    }
+    val remaining = points.drop(1)
+    val disk = smallestCircle(remaining, r)
+    return if (disk != null && point in disk) disk else smallestCircle(remaining, r + point)
 }
 
 fun circumscribedCircle(a: PointF, b: PointF, c: PointF) : Disk {

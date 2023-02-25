@@ -2,7 +2,9 @@ package mdf
 
 import Board
 import Point
+import PointF
 import org.junit.Test
+import smallestCircle
 import kotlin.math.ceil
 
 class MDF2019b : BaseTest("MDF2019b") {
@@ -15,7 +17,7 @@ class MDF2019b : BaseTest("MDF2019b") {
     fun test2() = test(21, ::p2)
 
     @Test
-    fun test3() = test(2, ::p3)
+    fun test3() = test(9, ::p3)
 
 
     private fun p1(lines: List<String>): Any {
@@ -35,7 +37,9 @@ class MDF2019b : BaseTest("MDF2019b") {
         it != point.x && get(it, point.y) == 'T'
     }
 
+    // !!! outputs 2-8 on website are wrong !!!
     private fun p3(lines: List<String>): Any {
-        return lines
+        val points = lines.drop(1).map { it.split(" ").let { (x, y) -> PointF(x.toFloat(), y.toFloat()) } }
+        return smallestCircle(points, emptyList())!!.center.run { "${ceil(x).toInt()} ${ceil(y).toInt()}" }
     }
 }
