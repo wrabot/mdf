@@ -28,18 +28,18 @@ fun smallestCircle(points: List<PointF>, r: List<PointF>): Disk? {
 }
 
 fun circumscribedCircle(a: PointF, b: PointF, c: PointF) : Disk {
-    val div = Matrix(3).init(
+    val div = DoubleMatrix(3).init(
         a.x, a.y, 1f,
         b.x, b.y, 1f,
         c.x, c.y, 1f,
     ).determinant() * 2
     val center = PointF(
-        (Matrix(3).init(
+        (DoubleMatrix(3).init(
             a.norm2(), a.y, 1f,
             b.norm2(), b.y, 1f,
             c.norm2(), c.y, 1f,
         ).determinant() / div).toFloat(),
-        (Matrix(3).init(
+        (DoubleMatrix(3).init(
             a.x, a.norm2(), 1f,
             b.x, b.norm2(), 1f,
             c.x, c.norm2(), 1f,
