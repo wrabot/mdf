@@ -14,6 +14,14 @@ abstract class Matrix<T : Any>(val height: Int, val width: Int, private val cell
         cells[row * width + column] = value
     }
 
+    fun onEach(block: (r: Int, c: Int, v: T) -> Unit) = apply {
+        repeat(height) { r ->
+            repeat(width) { c ->
+                block(r, c, this[r, c])
+            }
+        }
+    }
+
     fun isValid(row: Int, column: Int) = column in 0 until width && row in 0 until height
 
     private fun check(row: Int, column: Int) = assert(isValid(row, column)) { "invalid row or column: $row < $height && $column < $width" }
