@@ -1,9 +1,8 @@
 package mdf
 
-import mdf.BaseTest
 import org.junit.Test
 
-class MDFXXXX : BaseTest("resources/mdf.MDF2019") {
+class MDFXXXX : BaseTest("resources/mdf.MDFXXXX") {
     // println(p(lines))
 
     @Test
