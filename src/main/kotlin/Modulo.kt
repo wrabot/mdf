@@ -14,3 +14,5 @@ fun Long.times(multiplier: Long, modulo: Long): Long {
         a %= modulo
     }
 }
+
+tailrec fun pgcd(a: Int, b: Int): Int = if (b == 0) a else pgcd(b, a % b)
