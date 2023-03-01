@@ -1,0 +1,5 @@
+4 12
+.XXXX...X...
+..XXXXXXXX..
+...XXXXXXX..
+..XX.....X..

@@ -8,6 +8,8 @@ data class Point(val x: Int = 0, val y: Int = 0, val z: Int = 0) {
     fun norm2() = x * x + y * y
 }
 
+fun String.toPoint() = split(" ").let { Point(it[0].toInt(), it[1].toInt()) }
+
 class Board<T>(val width: Int, val height: Int, val cells: List<T>) {
     val points = (0 until height).flatMap { y ->
         (0 until width).map { x ->
