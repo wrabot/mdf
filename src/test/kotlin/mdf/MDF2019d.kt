@@ -12,7 +12,7 @@ class MDF2019d : BaseTest("MDF2019d") {
     fun test2() = test(8, ::p2)
 
     @Test
-    fun test3() = test(5, ::p3)
+    fun test3() = test(2..5, ::p3)
 
     private fun p1(lines: List<String>): Any {
         val (myStart, myLine) = lines[0].split(" ").map { it.toInt() }
@@ -35,12 +35,20 @@ class MDF2019d : BaseTest("MDF2019d") {
     }
 
     private fun p3(lines: List<String>): Any {
-        val results = lines.drop(1).mapIndexed { index, line ->
+        val players = lines.drop(1).mapIndexed { index, line ->
             Player(index + 1, line.split(" ").map { it.toInt() })
-        }.toMutableList()
-        // TODO
-        return results.joinToString(" ") { it.id.toString() }
+        }
+        return players.sort().joinToString(" ") { it.id.toString() }
     }
 
-    data class Player(val id: Int, val times: List<Int>)
+    data class Player(val id: Int, val times: List<Int>) {
+        // weird order: samples are last to first
+        fun isBefore(other: Player) = times.zip(other.times).count { it.first >= it.second } >= 2
+    }
+
+    private fun List<Player>.sort(): List<Player> {
+        val first = firstOrNull() ?: return emptyList()
+        val partition = drop(1).partition { it.isBefore(first) }
+        return partition.first.sort() + first + partition.second.sort()
+    }
 }
