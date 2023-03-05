@@ -1,5 +1,7 @@
 package mdf
 
+import IntMatrix
+import munkres
 import org.junit.Test
 
 class MDF2019c : BaseTest("MDF2019c") {
@@ -12,7 +14,7 @@ class MDF2019c : BaseTest("MDF2019c") {
     fun test2() = test(8, ::p2)
 
     @Test
-    fun test3() = test(2, ::p3)
+    fun test3() = test(listOf(1, 2, 3, 5, 6), ::p3)
 
 
     private fun p1(lines: List<String>): Any {
@@ -32,6 +34,27 @@ class MDF2019c : BaseTest("MDF2019c") {
     }
 
     private fun p3(lines: List<String>): Any {
-        return lines
+        val participants = lines[1].split(" ").mapIndexed { index, s -> Participant(index + 1, s == "1") }
+        val relations = lines.drop(2).map { line -> line.split(" ").map { it.toInt() } }
+            .flatMap { listOf(it[0] to it[1], it[1] to it[0]) }
+            .groupBy({ it.first }, { it.second })
+            .mapValues { it.value.toSet() }
+        val groups = participants.partition { it.isScientist }
+        val costs = IntMatrix(groups.first.size, groups.second.size).init(
+            *groups.first.flatMap { s ->
+                groups.second.map { l ->
+                    relations[s.id].orEmpty().intersect(relations[l.id].orEmpty()).count().let {
+                        if (it == 0) 999999999 else 1000000 / it
+                    }
+                }
+            }.toTypedArray()
+        )
+        return munkres(costs)
+            .map { groups.first[it.first].id to groups.second[it.second].id }
+            .sortedBy { it.first }
+            .joinToString(",") { "${it.first} ${it.second}" }
+
     }
+
+    data class Participant(val id: Int, val isScientist: Boolean)
 }
