@@ -42,7 +42,7 @@ class MDF2019d : BaseTest("MDF2019d") {
     }
 
     data class Player(val id: Int, val times: List<Int>) {
-        // weird order: samples are last to first
+        // FIXME weird order: samples are last to first
         fun isBefore(other: Player) = times.zip(other.times).count { it.first >= it.second } >= 2
     }
 

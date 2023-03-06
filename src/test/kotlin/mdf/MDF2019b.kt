@@ -37,7 +37,7 @@ class MDF2019b : BaseTest("MDF2019b") {
         it != point.x && get(it, point.y) == 'T'
     }
 
-    // !!! outputs 2-8 on website are wrong !!!
+    // FIXME outputs 2-8 on website are wrong !!!
     private fun p3(lines: List<String>): Any {
         val points = lines.drop(1).map { it.split(" ").let { (x, y) -> PointF(x.toFloat(), y.toFloat()) } }
         return smallestCircle(points, emptyList())!!.center.run { "${ceil(x).toInt()} ${ceil(y).toInt()}" }

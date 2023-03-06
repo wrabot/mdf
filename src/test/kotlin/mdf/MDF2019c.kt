@@ -43,13 +43,17 @@ class MDF2019c : BaseTest("MDF2019c") {
         val costs = IntMatrix(groups.first.size, groups.second.size).init(
             *groups.first.flatMap { s ->
                 groups.second.map { l ->
-                    relations[s.id].orEmpty().intersect(relations[l.id].orEmpty()).count().let {
-                        if (it == 0) 999999999 else 1000000 / it
-                    }
+                    relations[s.id].orEmpty().intersect(relations[l.id].orEmpty()).count()
                 }
             }.toTypedArray()
         )
-        return munkres(costs)
+        val matrix = IntMatrix(groups.first.size, groups.second.size).apply {
+            costs.onEach { r, c, v ->
+                // FIXME -v is not working why ? -v seems better then 1/v
+                this[r,c] = if (v == 0) 999999999 else 1000000 / v
+            }
+        }
+        return munkres(matrix)//.apply { sumOf { costs[it.first, it.second] }.log() }
             .map { groups.first[it.first].id to groups.second[it.second].id }
             .sortedBy { it.first }
             .joinToString(",") { "${it.first} ${it.second}" }
