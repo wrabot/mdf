@@ -26,13 +26,12 @@ class MDF2023a : BaseTest("MDF2023a") {
     }
 
     private fun p2(lines: List<String>): Any {
-        val j = lines[1].toLong() - 1
-        val s = lines[2].split(" ").map { it.toLong() }
-        val t = s.sum()
-        var i = j % t
-        s.forEachIndexed { index, d ->
-            if (i < d) return index + 1
-            i -= d
+        val target = lines[1].toLong() - 1
+        val seasons = lines[2].split(" ").map { it.toLong() }
+        var targetInYear = target % seasons.sum()
+        seasons.forEachIndexed { index, d ->
+            if (targetInYear < d) return index + 1
+            targetInYear -= d
         }
         return -1
     }
