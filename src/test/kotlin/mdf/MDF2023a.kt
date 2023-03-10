@@ -37,21 +37,17 @@ class MDF2023a : BaseTest("MDF2023a") {
     }
 
     private fun p3(lines: List<String>): Any {
-        val (n, m, e) = lines[0].split(" ").map { it.toInt() }
-        val a = lines.drop(1).map {
+        val (n, _, e) = lines[0].split(" ").map { it.toInt() }
+        val lifts = lines.drop(1).map {
             val (a, b) = it.split(" ").map { it.toInt() }
             a..b
         }
-        val find = find(a.filter { e in it }, a, n)
-        return if (find) "YES" else "NO"
-    }
-
-    private fun find(e: List<IntRange>, a: List<IntRange>, n: Int): Boolean {
-        if (e.any { it.contains(n) }) return true
-        val new = a.filter { u ->
-            e.any { it.first in u || it.last in u }
+        var current = e
+        while (true) {
+            val max = lifts.filter { current in it }.maxOfOrNull { it.last } ?: break
+            if (max == current) break
+            current = max
         }
-        if (new.isEmpty()) return false
-        return find(new, a - new, n)
+        return if (current == n) "YES" else "NO"
     }
 }
