@@ -24,9 +24,8 @@ class MDF2023f : BaseTest("MDF2023f") {
     fun test6() = test(0, ::p6)
 
     private fun p1(lines: List<String>): Any {
-        return lines.asSequence().drop(1).map { it.split(" ") }
-            .groupBy({ it[1] }, { it[0] }).filter { it.value.size == 1 }
-            .map { it.value.single().toInt() }.sorted()
+        return lines.drop(1).map { it.split(" ") }
+            .groupBy({ it[1] }, { it[0] }).values.mapNotNull { it.singleOrNull()?.toInt() }.sorted()
             .joinToString("\n")
     }
 
