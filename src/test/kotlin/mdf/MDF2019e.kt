@@ -1,9 +1,8 @@
 package mdf
 
-import Board
-import Point
 import org.junit.Test
-import toPoint
+import tools.board.Board
+import tools.board.Point
 
 class MDF2019e : BaseTest("MDF2019e") {
     // println(p(lines))
@@ -47,11 +46,12 @@ class MDF2019e : BaseTest("MDF2019e") {
     }
 
     private fun p3(lines: List<String>): Any {
-        val d = lines[0].split(" ")[1].toInt()
-        val d2 = d * d
-        val nodes = lines.drop(1).map { it.toPoint() }
+        val d2 = lines[0].split(" ")[1].toInt().let { it * it  }
+        val nodes = lines.drop(1).map { line ->
+            line.split(" ").let { Point(it[0].toInt(), it[1].toInt()) }
+        }
         val neighbors = nodes.associateWith { point ->
-            (nodes - point).filter { (it - point).norm2() <= d2 }
+            (nodes - point).filter { (it - point).run { x * x + y * y } <= d2 }
         }
         return longPath(listOf(nodes.first())) { neighbors[it].orEmpty() }
     }

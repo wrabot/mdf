@@ -1,10 +1,10 @@
 package mdf
 
-import Board
-import Point
 import PointF
 import org.junit.Test
 import smallestCircle
+import tools.board.Board
+import tools.board.Point
 import kotlin.math.ceil
 
 class MDF2019b : BaseTest("MDF2019b") {

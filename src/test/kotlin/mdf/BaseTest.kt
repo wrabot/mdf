@@ -3,6 +3,7 @@ package mdf
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.rules.TestName
+import tools.log
 import java.io.File
 
 open class BaseTest(private val dir: String) {
@@ -26,14 +27,6 @@ open class BaseTest(private val dir: String) {
             )
         }
     }
-
-    fun log(message: Any?) = System.err.println(message)
-
-    fun List<Char>.log(width: Int) = apply {
-        log(chunked(width) { it.joinToString("") }.joinToString("\n"))
-    }
-
-    fun <T> T.log() = apply { log(this) }
 
     private fun resource(name: String) = File(name).readText()
 }
