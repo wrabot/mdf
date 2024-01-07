@@ -36,4 +36,3 @@ abstract class Matrix<T : Any>(val height: Int, val width: Int, private val cell
 }
 
 class IntMatrix(height: Int, width: Int = height) : Matrix<Int>(height, width, Array(height * width) { 0 })
-class BooleanMatrix(height: Int, width: Int = height) : Matrix<Boolean>(height, width, Array(height * width) { false })
