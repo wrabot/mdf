@@ -1,6 +1,5 @@
 package mdf
 
-import IntMatrix
 import munkres
 import org.junit.Test
 
@@ -40,23 +39,17 @@ class MDF2019c : BaseTest("MDF2019c") {
             .groupBy({ it.first }, { it.second })
             .mapValues { it.value.toSet() }
         val groups = participants.partition { it.isScientist }
-        val costs = IntMatrix(groups.first.size, groups.second.size).init(
-            *groups.first.flatMap { s ->
-                groups.second.map { l ->
-                    relations[s.id].orEmpty().intersect(relations[l.id].orEmpty()).count()
-                }
-            }.toTypedArray()
-        )
-        val matrix = IntMatrix(groups.first.size, groups.second.size).apply {
-            costs.onEach { r, c, v ->
-                // FIXME -v is not working why ? -v seems better then 1/v
-                this[r,c] = if (v == 0) 999999999 else 1000000 / v
+        val costs = groups.first.map { s ->
+            groups.second.map { l ->
+                relations[s.id].orEmpty().intersect(relations[l.id].orEmpty()).count()
             }
         }
-        return munkres(matrix)//.apply { sumOf { costs[it.first, it.second] }.log() }
-            .map { groups.first[it.first].id to groups.second[it.second].id }
-            .sortedBy { it.first }
-            .joinToString(",") { "${it.first} ${it.second}" }
+        return munkres(groups.first.size, groups.second.size) { r, c ->
+            val v = costs[r][c]
+            // FIXME -v is not working why ? -v seems better then 1/v
+            if (v == 0) 999999999 else 1000000 / v
+        }.map { groups.first[it.first].id to groups.second[it.second].id }
+            .sortedBy { it.first }.joinToString(",") { "${it.first} ${it.second}" }
 
     }
 
