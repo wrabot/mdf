@@ -1,7 +1,7 @@
 package mdf
 
-import munkres
 import org.junit.Test
+import tools.graph.munkres
 
 class MDF2019c : BaseTest("MDF2019c") {
     // println(p(lines))
