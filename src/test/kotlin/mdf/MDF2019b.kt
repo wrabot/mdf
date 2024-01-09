@@ -7,9 +7,7 @@ import tools.geometry.PointD
 import tools.geometry.smallestCircle
 import kotlin.math.ceil
 
-class MDF2019b : BaseTest("MDF2019b") {
-    // println(p(lines))
-
+class MDF2019b : BaseTest() {
     @Test
     fun test1() = test(4, ::p1)
 
@@ -18,7 +16,6 @@ class MDF2019b : BaseTest("MDF2019b") {
 
     @Test
     fun test3() = test(9, ::p3)
-
 
     private fun p1(lines: List<String>): Any {
         return lines.drop(1).joinToString("").split("X").maxOfOrNull { it.count { it == 'B' } }!! - 1

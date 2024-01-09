@@ -6,7 +6,9 @@ import org.junit.rules.TestName
 import tools.log
 import java.io.File
 
-open class BaseTest(private val dir: String) {
+open class BaseTest {
+    private val dir = javaClass.simpleName
+
     @Rule
     @JvmField
     val testName = TestName()

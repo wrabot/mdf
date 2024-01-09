@@ -2,9 +2,7 @@ package mdf
 
 import org.junit.Test
 
-class MDF2019a : BaseTest("MDF2019a") {
-    // println(p(lines))
-
+class MDF2019a : BaseTest() {
     @Test
     fun test1() = test(4, ::p1)
 
@@ -13,7 +11,6 @@ class MDF2019a : BaseTest("MDF2019a") {
 
     @Test
     fun test3() = test(7, ::p3)
-
 
     private fun p1(lines: List<String>): Any {
         return lines.drop(1).filter { it == it.reversed() }.joinToString(" ")

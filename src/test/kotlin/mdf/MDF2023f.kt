@@ -2,9 +2,7 @@ package mdf
 
 import org.junit.Test
 
-class MDF2023f : BaseTest("MDF2023f") {
-    // println(p(lines))
-
+class MDF2023f : BaseTest() {
     @Test
     fun test1() = test(9, ::p1)
 

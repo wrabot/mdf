@@ -3,9 +3,7 @@ package mdf
 import org.junit.Test
 import kotlin.math.max
 
-class CDC2023q : BaseTest("CDC2023q") {
-    // println(p(lines))
-
+class CDC2023q : BaseTest() {
     @Test
     fun test1() = test(11, ::p1)
 

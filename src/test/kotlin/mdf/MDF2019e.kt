@@ -4,9 +4,7 @@ import org.junit.Test
 import tools.board.Board
 import tools.board.Point
 
-class MDF2019e : BaseTest("MDF2019e") {
-    // println(p(lines))
-
+class MDF2019e : BaseTest() {
     @Test
     fun test1() = test(4, ::p1)
 

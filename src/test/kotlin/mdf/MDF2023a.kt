@@ -2,9 +2,7 @@ package mdf
 
 import org.junit.Test
 
-class MDF2023a : BaseTest("MDF2023a") {
-    // println(p(lines))
-
+class MDF2023a : BaseTest() {
     @Test
     fun test1() = test(9, ::p1)
 
@@ -13,7 +11,6 @@ class MDF2023a : BaseTest("MDF2023a") {
 
     @Test
     fun test3() = test(16, ::p3)
-
 
     private fun p1(lines: List<String>): Any {
         val pfc = "PFC"

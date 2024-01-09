@@ -3,9 +3,7 @@ package mdf
 import org.junit.Test
 import tools.graph.munkres
 
-class MDF2019c : BaseTest("MDF2019c") {
-    // println(p(lines))
-
+class MDF2019c : BaseTest() {
     @Test
     fun test1() = test(4, ::p1)
 
@@ -14,7 +12,6 @@ class MDF2019c : BaseTest("MDF2019c") {
 
     @Test
     fun test3() = test(listOf(1, 2, 3, 5, 6), ::p3)
-
 
     private fun p1(lines: List<String>): Any {
         val autonomy = 100 * lines[0].toInt() / lines[1].toInt()

@@ -2,7 +2,7 @@ package mdf
 
 import org.junit.Test
 
-class MDFXXXX : BaseTest("MDFXXXX") {
+class MDFXXXX : BaseTest() {
     // println(p(lines))
 
     @Test
