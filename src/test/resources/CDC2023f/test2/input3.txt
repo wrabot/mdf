@@ -1,0 +1,7 @@
+Dijon
+Strasbourg
+3
+4 4 5
+Brest Rennes Paris Strasbourg
+Rennes Limoges Toulouse Marseille
+Marseille Lyon Dijon Paris Lille
