@@ -2,6 +2,7 @@ package mdf
 
 import org.junit.Test
 import tools.graph.munkres
+import tools.log
 
 class MDF2019c : BaseTest() {
     @Test
@@ -15,8 +16,7 @@ class MDF2019c : BaseTest() {
 
     private fun p1(lines: List<String>): Any {
         val autonomy = 100 * lines[0].toInt() / lines[1].toInt()
-        val distances = (listOf(0) + lines.drop(2).map { it.toInt() })
-            .zipWithNext().map { (a, b) -> b - a }
+        val distances = (listOf(0) + lines.drop(2).map { it.toInt() }).zipWithNext().map { (a, b) -> b - a }
         return if (distances.all { it <= autonomy }) "OK" else "KO"
     }
 
@@ -46,8 +46,9 @@ class MDF2019c : BaseTest() {
             // FIXME -v is not working why ? -v seems better then 1/v
             if (v == 0) 999999999 else 1000000 / v
         }.map { groups.first[it.first].id to groups.second[it.second].id }
+            // display score
+            .apply { sumOf { relations[it.first].orEmpty().intersect(relations[it.second].orEmpty()).count() }.log() }
             .sortedBy { it.first }.joinToString(",") { "${it.first} ${it.second}" }
-
     }
 
     data class Participant(val id: Int, val isScientist: Boolean)
