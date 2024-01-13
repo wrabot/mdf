@@ -1,0 +1,10 @@
+9
+aaaaaa 4.25 S
+bbbbbb 4.25 E
+bbbbbb 4.25 S
+bbbbbb 4.30 E
+bbbbbb 4.30 E
+aaaaaa 4.30 E
+bbbbbb 4.30 E
+aaaaaa 4.30 E
+aaaaaa 4.30 E
