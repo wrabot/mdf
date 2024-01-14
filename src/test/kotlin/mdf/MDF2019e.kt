@@ -1,8 +1,8 @@
 package mdf
 
 import org.junit.Test
-import tools.board.Board
 import tools.board.Point
+import tools.board.toBoard
 
 class MDF2019e : BaseTest() {
     @Test
@@ -32,9 +32,8 @@ class MDF2019e : BaseTest() {
     }
 
     private fun p2(lines: List<String>): Any {
-        val rows = lines.drop(1)
-        val board = Board(rows[0].length, rows.size, rows.flatMap { it.toList() })
-        val points = board.points.filter { board[it] == 'X' }.toMutableList()
+        val board = lines.drop(1).toBoard { it }
+        val points = board.xy.filter { board[it] == 'X' }.toMutableList()
         var count = 0
         while (points.isNotEmpty()) {
             points.removeAll(board.zone4(points.first()) { board[it] == 'X' })
@@ -44,7 +43,7 @@ class MDF2019e : BaseTest() {
     }
 
     private fun p3(lines: List<String>): Any {
-        val d2 = lines[0].split(" ")[1].toInt().let { it * it  }
+        val d2 = lines[0].split(" ")[1].toInt().let { it * it }
         val nodes = lines.drop(1).map { line ->
             line.split(" ").let { Point(it[0].toInt(), it[1].toInt()) }
         }

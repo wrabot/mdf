@@ -2,7 +2,7 @@ package mdf
 
 import org.junit.Test
 import tools.board.Board
-import tools.board.Point
+import tools.board.toBoard
 import tools.geometry.PointD
 import tools.geometry.smallestCircle
 import kotlin.math.ceil
@@ -22,16 +22,16 @@ class MDF2019b : BaseTest() {
     }
 
     private fun p2(lines: List<String>): Any {
-        val board = Board(8, 8, lines.flatMap { it.toList() })
-        val king = board.points.first { board[it] == 'R' }
+        val board = lines.toBoard { it }
+        val king = board.xy.first { board[it] == 'R' }
         val free = board.neighbors8(king).any { !board.isCheck(it) }
         return if (free) "still-in-game" else if (board.isCheck(king)) "check-mat" else "pat"
     }
 
-    private fun Board<Char>.isCheck(point: Point) = (0..7).any {
-        it != point.y && get(point.x, it) == 'T'
+    private fun Board<Char>.isCheck(xy: Board.XY) = (0..7).any {
+        it != xy.y && get(xy.x, it) == 'T'
     } || (0..7).any {
-        it != point.x && get(it, point.y) == 'T'
+        it != xy.x && get(it, xy.y) == 'T'
     }
 
     // FIXME outputs 2-8 on website are wrong !!!

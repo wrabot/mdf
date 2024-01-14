@@ -2,7 +2,7 @@ package mdf
 
 import org.junit.Test
 import tools.board.Board
-import tools.board.Point
+import tools.board.toBoard
 import kotlin.math.roundToLong
 
 class MDF2018a : BaseTest() {
@@ -45,23 +45,23 @@ class MDF2018a : BaseTest() {
         override fun toString() = c.toString()
     }
 
-    private fun p3(lines: List<String>) = lines[0].toInt().let { size ->
-        val petri = Board(size, size, lines.drop(1).flatMap { line -> line.map { Cell(it) } })
+    private fun p3(lines: List<String>): Int {
+        val petri = lines.drop(1).toBoard(::Cell)
         val bacteria = petri.cells.filter { it.c.isDigit() }.map { it.c }.distinct()
         do {
             isModified = false
-            petri.points.filter { petri[it].c == '=' }.forEach { petri[petri.neighbors4(it)] = '=' }
+            petri.xy.filter { petri[it].c == '=' }.forEach { petri[petri.neighbors4(it)] = '=' }
             val contamination = bacteria.associateWith { b ->
-                petri.points.filter { petri[it].c == b }.flatMap { petri.neighbors4(it) }.distinct()
+                petri.xy.filter { petri[it].c == b }.flatMap { petri.neighbors4(it) }.distinct()
             }
             petri[contamination.values.flatten().groupingBy { it }.eachCount().filter { it.value > 1 }.keys] = '='
             contamination.forEach { (b, points) -> petri[points] = b }
         } while (isModified)
-        bacteria.maxOf { b -> petri.points.count { petri[it].c == b } }
+        return bacteria.maxOf { b -> petri.xy.count { petri[it].c == b } }
     }
 
     private var isModified = false
-    private operator fun Board<Cell>.set(points: Iterable<Point>, b: Char) = points.forEach {
+    private operator fun Board<Cell>.set(points: Iterable<Board.XY>, b: Char) = points.forEach {
         val cell = this[it]
         if (cell.c == '.') {
             cell.c = b
