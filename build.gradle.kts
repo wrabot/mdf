@@ -10,7 +10,7 @@ repositories {
 }
 
 dependencies {
-    testImplementation("wrabot.competitive:CompetitiveTools:0.8")
+    testImplementation("wrabot.competitive:CompetitiveTools:0.10")
     // to test new CompetitiveTools
     //testImplementation("wrabot.competitive:CompetitiveTools") { version { branch = "main" } }
     testImplementation("junit:junit:4.13.2")

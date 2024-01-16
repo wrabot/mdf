@@ -3,7 +3,7 @@ package mdf
 import org.junit.Test
 import tools.board.Board
 import tools.board.toBoard
-import tools.geometry.PointD
+import tools.geometry.Point
 import tools.geometry.smallestCircle
 import kotlin.math.ceil
 
@@ -36,7 +36,7 @@ class MDF2019b : BaseTest() {
 
     // FIXME outputs 2-8 on website are wrong !!!
     private fun p3(lines: List<String>): Any {
-        val points = lines.drop(1).map { it.split(" ").let { (x, y) -> PointD(x.toDouble(), y.toDouble()) } }
+        val points = lines.drop(1).map { it.split(" ").let { (x, y) -> Point(x.toDouble(), y.toDouble()) } }
         return smallestCircle(points, emptyList())!!.center.run { "${ceil(x).toInt()} ${ceil(y).toInt()}" }
     }
 }
