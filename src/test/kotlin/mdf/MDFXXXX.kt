@@ -2,9 +2,8 @@ package mdf
 
 import org.junit.Test
 
+// println(p(lines))
 class MDFXXXX : BaseTest() {
-    // println(p(lines))
-
     @Test
     fun test1() = test(0, ::p1)
 

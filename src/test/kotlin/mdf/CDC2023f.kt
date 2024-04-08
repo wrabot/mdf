@@ -34,12 +34,12 @@ class CDC2023f : BaseTest() {
     }
 
     private fun p3(lines: List<String>): Any {
-        val center = lines[0].toPoint()
+        val center = lines[0].toPoint(" ")
         val radius2 = lines[1].toDouble().let { it * it }
         var count = 0
         var consecutive = 0
         lines.drop(3).forEach {
-            if ((it.toPoint() - center).norm2() <= radius2) {
+            if ((it.toPoint(" ") - center).norm2() <= radius2) {
                 if (++consecutive == 2) count++
             } else {
                 consecutive = 0

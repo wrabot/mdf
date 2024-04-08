@@ -45,7 +45,7 @@ class MDF2019e : BaseTest() {
 
     private fun p3(lines: List<String>): Any {
         val d2 = lines[0].split(" ")[1].toInt().let { it * it }
-        val nodes = lines.drop(1).map { it.toPoint() }
+        val nodes = lines.drop(1).map { it.toPoint(" ") }
         val neighbors = nodes.associateWith { point ->
             (nodes - point).filter { (it - point).run { x * x + y * y } <= d2 }
         }
