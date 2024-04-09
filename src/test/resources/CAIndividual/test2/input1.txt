@@ -1,0 +1,9 @@
+3
+530 Ordinateur
+75 TelephonePortable
+12 ServeurST448FX
+4
+100 TelephonePortable
+30 Tablette
+150 Ordinateur
+82 PackClavierSouris

@@ -1,0 +1,11 @@
+10
+DirtyPowerCo 273
+PetroPolluteElectric 186
+BioChargeEnergy 140
+EcoWaveElectric 12
+CleanGenPower 37
+DirtyGridSolutions 249
+HydroGenPowerCo 34
+OilAndGasElectricity 174
+SolarFusionCo 144
+GreenTechElectric 136

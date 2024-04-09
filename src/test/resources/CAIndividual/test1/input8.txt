@@ -1,0 +1,21 @@
+20
+PolluteAndProfitEnergy 5338
+EcoFusionEnergy 1665
+EcoPowerInc 1450
+SunEcoTech 4155
+CoalAshDischarge 5097
+WindWiseInc 3864
+CarbonWastelandElec 6941
+PollutionGeniusInc 8533
+WindHarmonyInc 3346
+EcoWattSustain 1932
+EcoZenElectricity 2996
+CarbonFreeElectro 3900
+CarbonCloudPower 5570
+SmoggyGridCorp 8131
+FossilFumesElectric 8094
+WindEcoSource 4128
+SolarGeniusGroup 769
+BioElectroTech 2118
+SmogWattSolutions 6519
+BioPowerTech 4547
