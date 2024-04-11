@@ -11,7 +11,7 @@ class CAIndividual : BaseTest() {
     fun test2() = test(10, ::p2)
 
     @Test
-    fun test3() = test(1..17, ::p3)
+    fun test3() = test(17, ::p3)
 
     private fun p1(lines: List<String>) = lines.drop(1).map { it.split(" ") }.minBy { it[1].toInt() }[0]
 
