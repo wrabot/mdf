@@ -1,0 +1,21 @@
+20
+NorthMacedonia 81 93
+Serbia 47 123
+Finland 174 197
+Tuvalu 127 121
+Libya 142 182
+Paraguay 97 194
+Montenegro 3 137
+Samoa 79 168
+Morocco 138 37
+Bulgaria 125 106
+Namibia 133 84
+India 170 12
+Dominica 37 122
+Grenada 53 64
+Chile 155 145
+UnitedKingdom 179 118
+Romania 66 21
+Slovenia 144 184
+Mauritius 164 191
+Monaco 117 177

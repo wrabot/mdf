@@ -1,0 +1,6 @@
+5
+Angola 11 12
+Azerbaijan 12 158
+Russia 141 93
+Nauru 119 51
+France 50 35

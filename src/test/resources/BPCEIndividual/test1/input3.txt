@@ -1,0 +1,11 @@
+10
+Pakistan 118 98
+TheBahamas 108 58
+Sweden 151 127
+Luxembourg 99 131
+Spain 46 175
+Estonia 70 132
+Samoa 99 6
+Switzerland 12 57
+Ghana 169 64
+Togo 197 42

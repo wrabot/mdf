@@ -1,0 +1,9 @@
+8
+Chili 101 2
+Estonia 58 1
+Romania 102 3
+Ecuador 103 4
+Madagascar 104 5
+Oman 50 1
+Nicaragua 51 3
+Yemen 53 4
