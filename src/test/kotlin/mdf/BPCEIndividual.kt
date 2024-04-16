@@ -3,7 +3,6 @@ package mdf
 import org.junit.Test
 import tools.graph.shortPath
 
-// println(p(lines))
 class BPCEIndividual : BaseTest() {
     @Test
     fun test1() = test(9, ::p1)

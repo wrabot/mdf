@@ -5,7 +5,6 @@ import tools.board.toBoard
 import tools.graph.shortPath
 import tools.select
 
-// println(p(lines))
 class BPCECollective : BaseTest() {
     @Test
     fun test1() = test(10, ::p1)
