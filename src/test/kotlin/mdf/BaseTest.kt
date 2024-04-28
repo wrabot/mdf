@@ -61,7 +61,7 @@ open class BaseTest {
 
         // generate
         val main = "fun main() = println($start(generateSequence(::readLine).toList()))"
-        val generated = stdImports + main + components.map { it.text } + files.flatMap { file ->
+        val generated = stdImports.map { "import $it" } + main + components.map { it.text } + files.flatMap { file ->
             file.findChildrenByClass(KtNamedDeclaration::class.java).map { it.text }
         }
         File("build/generated.kt").writeText(generated.joinToString("\n"))
