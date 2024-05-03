@@ -3,7 +3,7 @@ package mdf
 import org.junit.Test
 import tools.board.toBoard
 import tools.graph.shortPath
-import tools.select
+import tools.sequence.select
 
 class BPCECollective : BaseTest() {
     @Test
@@ -15,11 +15,11 @@ class BPCECollective : BaseTest() {
     @Test
     fun test3() = test(7, ::p3)
 
-    private fun p1(lines: List<String>) = lines.drop(1).map {
+    private fun p1(lines: List<String>) = lines.drop(1).joinToString("\n") {
         it.zip(it.reversed()).joinToString("") { (a, b) -> if (a == '#' || b == '#') "#" else "." }
-    }.joinToString("\n")
+    }
 
-    private fun p2(lines: List<String>) = lines.map { it.toDouble() }.select(9).map { it.average() }.toList().run {
+    private fun p2(lines: List<String>) = lines.map(String::toDouble).select(9).map { it.average() }.toList().run {
         listOf(min(), average(), median(), max())
     }.joinToString("\n")
 
