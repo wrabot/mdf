@@ -1,0 +1,22 @@
+5 18
+oohgohhhoohohoohoh
+ohfhoohghooooohooh
+oohoohohoohoohghoh
+ohooohofohghoohoho
+ooohooohoohooohoho
+3 3
+-h-
+h*h
+-h-
+1
+h
+3
+o 0
+f 9
+g 16
+o 1
+f 5
+g 2
+h 100
+3 4
+22

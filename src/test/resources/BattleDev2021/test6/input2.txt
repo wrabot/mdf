@@ -1,0 +1,33 @@
+10 10
+etexjxxmet
+xvcxvmejjt
+xmtxejkcct
+tvtvtjkjev
+tecmtmmxjt
+jtjvjctvjm
+jecxcktxee
+mckjvjvxxc
+xjetctekkv
+jktjvvjejc
+3 4
+-t*-
+mtmm
+*-*t
+3
+m t x
+5
+c 290
+e 846
+k 691
+j 268
+v 467
+m 3
+t 5
+x 6
+c 3
+e 8
+k 4
+j 8
+v 10
+6 0
+50

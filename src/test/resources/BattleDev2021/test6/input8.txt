@@ -1,0 +1,23 @@
+10 10
+ooooogoldo
+goldoooooo
+oooooooooo
+oooooooooo
+ooogoldooo
+oooooooooo
+ooogoldooo
+oooooooooo
+oooooooooo
+oooooooooo
+1 4
+g*ld
+3
+g l d
+1
+o 1
+o 1
+g 1
+l 1
+d 1
+0 0
+17
