@@ -16,6 +16,8 @@ import org.junit.Rule
 import org.junit.rules.TestName
 import tools.log
 import java.io.File
+import kotlin.time.ExperimentalTime
+import kotlin.time.measureTime
 
 
 open class BaseTest {
@@ -29,16 +31,19 @@ open class BaseTest {
 
     fun test(range: IntRange, block: (List<String>) -> Any) = test(range.toList(), block)
 
+    @OptIn(ExperimentalTime::class)
     fun test(inputs: List<Int>, block: (List<String>) -> Any) {
         val root = "./src/test/resources/"
         val path = "$dir/${testName.methodName}"
         log("start test $path")
         inputs.forEach { index ->
             log("start test $path input $index")
-            Assert.assertEquals(
-                resource("$root$path/output$index.txt"),
-                block(resource("$root$path/input$index.txt").lines()).toString()
-            )
+            val result : String
+            val duration = measureTime {
+                result = block(resource("$root$path/input$index.txt").lines()).toString()
+            }
+            log("duration $duration")
+            Assert.assertEquals(resource("$root$path/output$index.txt"), result)
         }
         generateFile(javaClass.packageName, javaClass.simpleName, testName.methodName)
     }
