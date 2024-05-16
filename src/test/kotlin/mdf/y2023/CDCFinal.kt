@@ -1,9 +1,10 @@
-package mdf
+package mdf.y2023
 
+import mdf.BaseTest
 import org.junit.Test
 import tools.geometry.toPoint
 
-class CDC2023f : BaseTest() {
+class CDCFinal : BaseTest() {
     @Test
     fun test1() = test(14, ::p1)
 

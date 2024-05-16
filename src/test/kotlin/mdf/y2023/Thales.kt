@@ -1,10 +1,11 @@
-package mdf
+package mdf.y2023
 
+import mdf.BaseTest
 import org.junit.Test
 import tools.geometry.toPoint
 import kotlin.math.min
 
-class Thales2023 : BaseTest() {
+class Thales : BaseTest() {
     @Test
     fun test1() = test(17, ::p1)
 

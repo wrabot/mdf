@@ -1,9 +1,10 @@
-package mdf
+package mdf.y2023
 
+import mdf.BaseTest
 import org.junit.Test
 import kotlin.math.max
 
-class CDC2023q : BaseTest() {
+class CDCQualif : BaseTest() {
     @Test
     fun test1() = test(11, ::p1)
 

@@ -1,5 +1,6 @@
-package mdf
+package mdf.y2023
 
+import mdf.BaseTest
 import org.junit.Test
 import tools.board.Board
 import tools.board.toBoard
@@ -11,7 +12,7 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 import kotlin.math.sign
 
-class TECH20230202 : BaseTest() {
+class TECH0202 : BaseTest() {
     @Test
     fun test1() = test(4, ::p1)
 

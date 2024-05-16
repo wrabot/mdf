@@ -1,8 +1,9 @@
-package mdf
+package mdf.y2023
 
+import mdf.BaseTest
 import org.junit.Test
 
-class MDF2023a : BaseTest() {
+class MDFRound1 : BaseTest() {
     @Test
     fun test1() = test(9, ::p1)
 

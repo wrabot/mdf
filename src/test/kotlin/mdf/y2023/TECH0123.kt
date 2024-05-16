@@ -1,8 +1,9 @@
-package mdf
+package mdf.y2023
 
+import mdf.BaseTest
 import org.junit.Test
 
-class TECH20230123 : BaseTest() {
+class TECH0123 : BaseTest() {
     @Test
     fun test1() = test(0, ::p1)
 
