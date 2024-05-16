@@ -21,7 +21,7 @@ import kotlin.time.measureTime
 
 
 open class BaseTest {
-    private val dir = javaClass.simpleName
+    private val dir = javaClass.name.removePrefix("mdf.").replace('.', '/')
 
     @Rule
     @JvmField
@@ -38,7 +38,7 @@ open class BaseTest {
         log("start test $path")
         inputs.forEach { index ->
             log("start test $path input $index")
-            val result : String
+            val result: String
             val duration = measureTime {
                 result = block(resource("$root$path/input$index.txt").lines()).toString()
             }
@@ -114,7 +114,6 @@ open class BaseTest {
                 }
             })
         }
-        stdImports.removeIf { it.asString() == "org.junit.Test" }
     }
 
     private fun PsiElement.names(): Set<String> =
