@@ -1,10 +1,11 @@
-package mdf
+package mdf.y2019
 
+import mdf.BaseTest
 import org.junit.Test
 import tools.graph.munkres
 import tools.log
 
-class MDF2019c : BaseTest() {
+class MDFc : BaseTest() {
     @Test
     fun test1() = test(4, ::p1)
 

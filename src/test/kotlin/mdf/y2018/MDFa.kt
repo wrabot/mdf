@@ -1,11 +1,12 @@
-package mdf
+package mdf.y2018
 
+import mdf.BaseTest
 import org.junit.Test
 import tools.board.Board
 import tools.board.toBoard
 import kotlin.math.roundToLong
 
-class MDF2018a : BaseTest() {
+class MDFa : BaseTest() {
     // println(p(lines))
 
     @Test
@@ -46,7 +47,7 @@ class MDF2018a : BaseTest() {
     }
 
     private fun p3(lines: List<String>): Int {
-        val petri = lines.drop(1).toBoard(::Cell)
+        val petri = lines.drop(1).toBoard(MDFa::Cell)
         val bacteria = petri.cells.filter { it.c.isDigit() }.map { it.c }.distinct()
         do {
             isModified = false

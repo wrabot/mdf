@@ -1,10 +1,11 @@
-package mdf
+package mdf.y2022
 
+import mdf.BaseTest
 import org.junit.Test
 import tools.graph.shortPath
 import tools.sequence.combinations
 
-class EI2022 : BaseTest() {
+class EI : BaseTest() {
     @Test
     fun test1() = test(5, ::p1)
 

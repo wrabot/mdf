@@ -1,5 +1,6 @@
-package mdf
+package mdf.y2019
 
+import mdf.BaseTest
 import org.junit.Test
 import tools.board.Board
 import tools.board.toBoard
@@ -7,7 +8,7 @@ import tools.geometry.Point
 import tools.geometry.smallestCircle
 import kotlin.math.ceil
 
-class MDF2019b : BaseTest() {
+class MDFb : BaseTest() {
     @Test
     fun test1() = test(4, ::p1)
 

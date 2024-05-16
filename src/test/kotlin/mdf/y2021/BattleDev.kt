@@ -1,5 +1,6 @@
-package mdf
+package mdf.y2021
 
+import mdf.BaseTest
 import org.junit.Test
 import tools.board.Board
 import tools.board.toBoard
@@ -7,7 +8,7 @@ import tools.board.toXY
 import tools.graph.distances
 import tools.optimization.knapsackValue
 
-class BattleDev2021 : BaseTest() {
+class BattleDev : BaseTest() {
     @Test
     fun test1() = test(4, ::p1)
 

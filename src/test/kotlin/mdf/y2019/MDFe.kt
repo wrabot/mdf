@@ -1,11 +1,12 @@
-package mdf
+package mdf.y2019
 
+import mdf.BaseTest
 import org.junit.Test
 import tools.board.toBoard
 import tools.geometry.Point
 import tools.geometry.toPoint
 
-class MDF2019e : BaseTest() {
+class MDFe : BaseTest() {
     @Test
     fun test1() = test(4, ::p1)
 

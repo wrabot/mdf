@@ -1,9 +1,10 @@
-package mdf
+package mdf.y2021
 
+import mdf.BaseTest
 import org.junit.Test
 
 // println(p(lines))
-class Orange2021 : BaseTest() {
+class Orange : BaseTest() {
     @Test
     fun test1() = test(5, ::p1)
 
