@@ -2,7 +2,7 @@ package mdf
 
 import org.junit.Test
 
-class MDFXXXX : BaseTest() {
+class Template : BaseTest() {
     @Test
     fun test1() = test(0, ::p1)
 
