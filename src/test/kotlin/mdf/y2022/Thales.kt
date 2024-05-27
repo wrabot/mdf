@@ -31,6 +31,7 @@ class Thales : BaseTest() {
         return tanks.sumOf { max - it }
     }
 
+    // TODO test on server 
     private fun p3(lines: List<String>) = (0..4).toList().combinations().minBy { c ->
         c.map { i -> lines[i].filter { it.isDigit() } }.reduce { a, b ->
             val i = (4 downTo 0).first { a.substring(a.length - it) == b.substring(0, it) }

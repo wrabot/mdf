@@ -58,7 +58,7 @@ class MDF : BaseTest() {
         return different.sumOf { it.second } + m.zip(f) { a, b -> a.second + b.second }.sum()
     }
 
-    // TODO check on isograd
+    // FiXME timeout on server 
     private fun p6(lines: List<String>): Int {
         var rectangles = lines.drop(1).map {
             val (l, t, r, b) = it.split(" ").map(String::toInt)
