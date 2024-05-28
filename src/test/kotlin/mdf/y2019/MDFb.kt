@@ -3,6 +3,7 @@ package mdf.y2019
 import mdf.BaseTest
 import org.junit.Test
 import tools.board.Board
+import tools.board.XY
 import tools.board.toBoard
 import tools.geometry.Point
 import tools.geometry.smallestCircle
@@ -29,7 +30,7 @@ class MDFb : BaseTest() {
         return if (free) "still-in-game" else if (board.isCheck(king)) "check-mat" else "pat"
     }
 
-    private fun Board<Char>.isCheck(xy: Board.XY) = (0..7).any {
+    private fun Board<Char>.isCheck(xy: XY) = (0..7).any {
         it != xy.y && get(xy.x, it) == 'T'
     } || (0..7).any {
         it != xy.x && get(it, xy.y) == 'T'

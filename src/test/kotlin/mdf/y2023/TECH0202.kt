@@ -3,6 +3,7 @@ package mdf.y2023
 import mdf.BaseTest
 import org.junit.Test
 import tools.board.Board
+import tools.board.XY
 import tools.board.toBoard
 import tools.geometry.Point
 import tools.geometry.toPoint
@@ -48,7 +49,7 @@ class TECH0202 : BaseTest() {
             end = board.xy[board.cells.indexOf('X')]
         ) { c ->
             Board.xy4dir.mapNotNull { d ->
-                var p: Board.XY? = null
+                var p: XY? = null
                 var n = c
                 while (true) {
                     n += d

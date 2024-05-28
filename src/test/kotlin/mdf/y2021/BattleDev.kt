@@ -3,6 +3,7 @@ package mdf.y2021
 import mdf.BaseTest
 import org.junit.Test
 import tools.board.Board
+import tools.board.XY
 import tools.board.toBoard
 import tools.board.toXY
 import tools.graph.distances
@@ -92,7 +93,7 @@ class BattleDev : BaseTest() {
         start = end
         end = start + structural.size + minerals.size
         val costs = lines.subList(start, end).toMap()
-        val base = lines[end++].toXY(" ").run { Board.XY(y, x) }
+        val base = lines[end++].toXY(" ").run { XY(y, x) }
         val days = lines[end].toInt()
 
         // planet matching

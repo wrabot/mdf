@@ -3,6 +3,7 @@ package mdf.y2018
 import mdf.BaseTest
 import org.junit.Test
 import tools.board.Board
+import tools.board.XY
 import tools.board.toBoard
 import kotlin.math.roundToLong
 
@@ -62,7 +63,7 @@ class MDFa : BaseTest() {
     }
 
     private var isModified = false
-    private operator fun Board<Cell>.set(points: Iterable<Board.XY>, b: Char) = points.forEach {
+    private operator fun Board<Cell>.set(points: Iterable<XY>, b: Char) = points.forEach {
         val cell = this[it]
         if (cell.c == '.') {
             cell.c = b
