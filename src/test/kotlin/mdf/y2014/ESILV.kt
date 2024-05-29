@@ -2,10 +2,8 @@ package mdf.y2014
 
 import mdf.BaseTest
 import org.junit.Test
-import tools.board.Board
 import tools.board.Direction4
 import tools.board.XY
-import tools.log
 
 class ESILV : BaseTest() {
     @Test
@@ -46,8 +44,9 @@ class ESILV : BaseTest() {
             .sortedByDescending { it.second }.joinToString("\n") { it.first }
     }
 
-    private fun p4(lines: List<String>) : String {
-        val directions = mapOf('O' to Direction4.West, 'N' to Direction4.North, 'E' to Direction4.East, 'S' to Direction4.South)
+    private fun p4(lines: List<String>): String {
+        val directions =
+            mapOf('O' to Direction4.West, 'N' to Direction4.North, 'E' to Direction4.East, 'S' to Direction4.South)
         val n = lines[0].toInt()
         return lines[1].windowed(n).associateWith {
             it.runningFold(XY(0, 0)) { acc, c -> acc + directions[c]!!.xy }.distinct().size

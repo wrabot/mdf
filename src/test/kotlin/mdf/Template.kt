@@ -21,27 +21,10 @@ class Template : BaseTest() {
     @Test
     fun test6() = test(0, ::p6)
 
-    private fun p1(lines: List<String>): Any {
-        return lines
-    }
-
-    private fun p2(lines: List<String>): Any {
-        return lines
-    }
-
-    private fun p3(lines: List<String>): Any {
-        return lines
-    }
-
-    private fun p4(lines: List<String>): Any {
-        return lines
-    }
-
-    private fun p5(lines: List<String>): Any {
-        return lines
-    }
-
-    private fun p6(lines: List<String>): Any {
-        return lines
-    }
+    private fun p1(lines: List<String>) = lines
+    private fun p2(lines: List<String>) = lines
+    private fun p3(lines: List<String>) = lines
+    private fun p4(lines: List<String>) = lines
+    private fun p5(lines: List<String>) = lines
+    private fun p6(lines: List<String>) = lines
 }
