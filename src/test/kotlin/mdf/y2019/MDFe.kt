@@ -2,9 +2,9 @@ package mdf.y2019
 
 import mdf.BaseTest
 import org.junit.Test
+import tools.Point
 import tools.board.toBoard
-import tools.geometry.Point
-import tools.geometry.toPoint
+import tools.toPoint
 
 class MDFe : BaseTest() {
     @Test

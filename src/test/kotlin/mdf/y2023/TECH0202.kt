@@ -2,13 +2,13 @@ package mdf.y2023
 
 import mdf.BaseTest
 import org.junit.Test
+import tools.Point
+import tools.XY
 import tools.board.Board
-import tools.board.XY
 import tools.board.toBoard
-import tools.geometry.Point
-import tools.geometry.toPoint
 import tools.graph.shortPath
 import tools.sequence.enumerate
+import tools.toPoint
 import java.math.BigDecimal
 import java.math.RoundingMode
 import kotlin.math.sign

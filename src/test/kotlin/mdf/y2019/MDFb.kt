@@ -2,10 +2,10 @@ package mdf.y2019
 
 import mdf.BaseTest
 import org.junit.Test
+import tools.Point
+import tools.XY
 import tools.board.Board
-import tools.board.XY
 import tools.board.toBoard
-import tools.geometry.Point
 import tools.geometry.smallestCircle
 import kotlin.math.ceil
 

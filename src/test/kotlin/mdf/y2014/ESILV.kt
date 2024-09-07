@@ -3,7 +3,7 @@ package mdf.y2014
 import mdf.BaseTest
 import org.junit.Test
 import tools.board.Direction4
-import tools.board.XY
+import tools.XY
 
 class ESILV : BaseTest() {
     @Test

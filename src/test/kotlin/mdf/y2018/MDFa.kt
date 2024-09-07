@@ -3,7 +3,7 @@ package mdf.y2018
 import mdf.BaseTest
 import org.junit.Test
 import tools.board.Board
-import tools.board.XY
+import tools.XY
 import tools.board.toBoard
 import kotlin.math.roundToLong
 

@@ -2,7 +2,7 @@ package mdf.y2023
 
 import mdf.BaseTest
 import org.junit.Test
-import tools.geometry.toPoint
+import tools.toPoint
 import kotlin.math.min
 
 class Thales : BaseTest() {
