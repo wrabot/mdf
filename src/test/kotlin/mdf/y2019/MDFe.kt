@@ -4,6 +4,7 @@ import mdf.BaseTest
 import org.junit.Test
 import tools.Point
 import tools.board.toBoard
+import tools.graph.zone
 import tools.toPoint
 
 class MDFe : BaseTest() {
@@ -38,7 +39,9 @@ class MDFe : BaseTest() {
         val points = board.xy.filter { board[it] == 'X' }.toMutableList()
         var count = 0
         while (points.isNotEmpty()) {
-            points.removeAll(board.zone4(points.first()) { board[it] == 'X' })
+            points.removeAll(zone(points.first()) { xy ->
+                board.neighbors4(xy).filter { board[it] == 'X' }
+            })
             count++
         }
         return count

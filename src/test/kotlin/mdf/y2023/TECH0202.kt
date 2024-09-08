@@ -48,7 +48,7 @@ class TECH0202 : BaseTest() {
             start = board.xy[board.cells.indexOf('P')],
             end = board.xy[board.cells.indexOf('X')]
         ) { c ->
-            Board.xy4dir.mapNotNull { d ->
+            XY.xy4dir.mapNotNull { d ->
                 var p: XY? = null
                 var n = c
                 while (true) {

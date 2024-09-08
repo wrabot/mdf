@@ -3,7 +3,6 @@ package mdf.y2021
 import mdf.BaseTest
 import org.junit.Test
 import tools.XY
-import tools.board.Board
 import tools.board.toBoard
 import tools.graph.distances
 import tools.optimization.knapsackValue
@@ -100,7 +99,7 @@ class BattleDev : BaseTest() {
         val planetInside = planetPattern.xy.filter { planetPattern[it] == '*' }
         val planetStructural = planetPattern.xy.filter { planetPattern[it] in structural }
         val planetMineral = planetPattern.xy.filter { planetPattern[it] == '-' } + planetInside
-        val planetMining = planetStructural.flatMap { xy -> Board.xy4dir.map { xy + it } }.toSet()
+        val planetMining = planetStructural.flatMap { xy -> XY.xy4dir.map { xy + it } }.toSet()
         val planetXMax = galaxy.width - planetPattern.width
         val planetYMax = galaxy.height - planetPattern.height
         val planets = galaxy.xy.filter { xy ->
