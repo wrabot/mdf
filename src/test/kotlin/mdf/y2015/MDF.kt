@@ -93,9 +93,8 @@ class MDF : BaseTest() {
 
     private fun p7(lines: List<String>): Int {
         val board = lines.drop(1).toBoard { Cell(it) }
-        var isModified = true
-        while (isModified) {
-            isModified = false
+        do {
+            var isModified = false
             board.xy.forEach {
                 val min = board.neighbors4(it).minOf { board[it].depth } + 1
                 if (min < board[it].depth) {
@@ -103,7 +102,7 @@ class MDF : BaseTest() {
                     isModified = true
                 }
             }
-        }
+        } while (isModified)
         return board.cells.maxOf { it.depth }
     }
 

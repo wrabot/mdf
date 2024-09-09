@@ -4,6 +4,7 @@ import mdf.BaseTest
 import org.junit.Test
 import tools.board.Board
 import tools.XY
+import tools.board.CharCell
 import tools.board.toBoard
 import kotlin.math.roundToLong
 
@@ -43,12 +44,8 @@ class MDFa : BaseTest() {
         counts.filter { it.value == minTries }
     }.keys.singleOrNull()?.first ?: "KO"
 
-    data class Cell(var c: Char) {
-        override fun toString() = c.toString()
-    }
-
     private fun p3(lines: List<String>): Int {
-        val petri = lines.drop(1).toBoard(MDFa::Cell)
+        val petri = lines.drop(1).toBoard(::CharCell)
         val bacteria = petri.cells.filter { it.c.isDigit() }.map { it.c }.distinct()
         do {
             isModified = false
@@ -59,11 +56,11 @@ class MDFa : BaseTest() {
             petri[contamination.values.flatten().groupingBy { it }.eachCount().filter { it.value > 1 }.keys] = '='
             contamination.forEach { (b, points) -> petri[points] = b }
         } while (isModified)
-        return bacteria.maxOf { b -> petri.xy.count { petri[it].c == b } }
+        return bacteria.maxOf { b -> petri.cells.count { it.c == b } }
     }
 
     private var isModified = false
-    private operator fun Board<Cell>.set(points: Iterable<XY>, b: Char) = points.forEach {
+    private operator fun Board<CharCell>.set(points: Iterable<XY>, b: Char) = points.forEach {
         val cell = this[it]
         if (cell.c == '.') {
             cell.c = b
