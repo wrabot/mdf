@@ -99,7 +99,7 @@ class BattleDev : BaseTest() {
         val planetInside = planetPattern.xy.filter { planetPattern[it] == '*' }
         val planetStructural = planetPattern.xy.filter { planetPattern[it] in structural }
         val planetMineral = planetPattern.xy.filter { planetPattern[it] == '-' } + planetInside
-        val planetMining = planetStructural.flatMap { xy -> XY.xy4dir.map { xy + it } }.toSet()
+        val planetMining = planetStructural.flatMap { it.neighbors4() }.toSet()
         val planetXMax = galaxy.width - planetPattern.width
         val planetYMax = galaxy.height - planetPattern.height
         val planets = galaxy.xy.filter { xy ->
