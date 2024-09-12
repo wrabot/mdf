@@ -15,7 +15,9 @@ import org.junit.Assert
 import org.junit.Rule
 import org.junit.rules.TestName
 import tools.log
+import java.io.ByteArrayOutputStream
 import java.io.File
+import java.io.PrintStream
 import kotlin.time.ExperimentalTime
 import kotlin.time.measureTime
 
@@ -26,29 +28,37 @@ open class BaseTest {
     @Rule
     @JvmField
     val testName = TestName()
+    
+    fun test(inputCount: Int, block: () -> Unit) = test(1..inputCount, block)
 
-    fun test(inputCount: Int, block: (List<String>) -> Any) = test(1..inputCount, block)
-
-    fun test(range: IntRange, block: (List<String>) -> Any) = test(range.toList(), block)
+    fun test(range: IntRange, block: () -> Unit) = test(range.toList(), block)
 
     @OptIn(ExperimentalTime::class)
-    fun test(inputs: List<Int>, block: (List<String>) -> Any) {
+    fun test(inputs: List<Int>, block: () -> Unit) {
         val root = "./src/test/resources/"
         val path = "$dir/${testName.methodName}"
         log("start test $path")
-        inputs.forEach { index ->
-            log("start test $path input $index")
-            val result: String
-            val duration = measureTime {
-                result = block(resource("$root$path/input$index.txt").lines()).toString()
+        val stdIn = System.`in`
+        val stdOut = System.out
+        try {
+            inputs.forEach { index ->
+                val output = ByteArrayOutputStream()
+                System.setIn(File("$root$path/input$index.txt").inputStream())
+                System.setOut(PrintStream(output, true))
+                log("start test $path input $index")
+                val duration = measureTime { block() }
+                log("duration $duration")
+                Assert.assertEquals(
+                    File("$root$path/output$index.txt").readText(),
+                    output.toString().trimEnd('\n')
+                )
             }
-            log("duration $duration")
-            Assert.assertEquals(resource("$root$path/output$index.txt"), result)
+        } finally {
+            System.setIn(stdIn)
+            System.setOut(stdOut)
         }
         generateFile(javaClass.packageName, javaClass.simpleName, testName.methodName)
     }
-
-    private fun resource(name: String) = File(name).readText()
 
     // generate
 
@@ -66,7 +76,7 @@ open class BaseTest {
 
         // generate
         val generated = listOf(stdImports.joinToString("\n") { "import $it" }) +
-                "fun main() = println($start(generateSequence(::readLine).toList()))" +
+                "fun main() = $start()" +
                 components.map { "    ${it.text}".trimIndent() } +
                 files.flatMap { file ->
                     file.findChildrenByClass(KtNamedDeclaration::class.java).map { it.text }

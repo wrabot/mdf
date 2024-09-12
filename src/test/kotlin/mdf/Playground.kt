@@ -6,5 +6,5 @@ class Playground : BaseTest() {
     @Test
     fun run() = test(0, ::solve)
 
-    private fun solve(lines: List<String>) = lines
+    private fun solve() {}
 }

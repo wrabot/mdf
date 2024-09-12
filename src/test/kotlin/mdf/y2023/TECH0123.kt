@@ -2,6 +2,7 @@ package mdf.y2023
 
 import mdf.BaseTest
 import org.junit.Test
+import tools.read.readAllLines
 
 class TECH0123 : BaseTest() {
     @Test
@@ -13,28 +14,32 @@ class TECH0123 : BaseTest() {
     @Test
     fun test3() = test(4, ::p3)
 
-    private fun p1(lines: List<String>): Any {
-        return lines[0].split(" ").map { it.toInt() }.groupingBy { it }.eachCount().toList()
+    private fun p1() {
+        val result = readln().split(" ").map { it.toInt() }.groupingBy { it }.eachCount().toList()
             .sortedBy { it.first }.sortedBy { it.second }.run { last().first - first().first }
+        println(result)
     }
 
-    private fun p2(lines: List<String>): Any {
-        val officers = lines[0].toInt()
-        val teams = lines.drop(2).map { it.toInt() }
+    private fun p2() {
+        val officers = readln().toInt()
+        val teams = readAllLines().drop(1).map { it.toInt() }
         val needed = (teams.sum() + officers) / 2 + 1 - officers
-        if (needed <= 0) return 0
-        val sums = mutableSetOf<Int>()
-        teams.forEach { team ->
-            sums += sums.map { it + team } + team
+        if (needed <= 0) {
+            println(0)
+        } else {
+            val sums = mutableSetOf<Int>()
+            teams.forEach { team ->
+                sums += sums.map { it + team } + team
+            }
+            println(sums.filter { it >= needed }.min())
         }
-        return sums.filter { it >= needed }.min()
     }
 
-    private fun p3(lines: List<String>): Any {
-        val destination = lines[0].split(" ").map { it.toLong() }.let {
+    private fun p3() {
+        val destination = readln().split(" ").map { it.toLong() }.let {
             Point(it[0], it[1])
         }
-        val moves = lines[1].map {
+        val moves = readln().map {
             when (it) {
                 'U' -> Point(0, 1)
                 'R' -> Point(1, 0)
@@ -45,14 +50,15 @@ class TECH0123 : BaseTest() {
         }
         val positions = moves.runningFold(Point(0, 0)) { position, move -> position + move }
         val modulo = positions.last()
-        return positions.dropLast(1).mapIndexedNotNull { index, value ->
+        val result = positions.dropLast(1).mapIndexedNotNull { index, value ->
             val delta = destination - value
             val rx = delta.x % modulo.x
             val ry = delta.y % modulo.y
             val nx = delta.x / modulo.x
             val ny = delta.y / modulo.y
             if (rx == 0L && ry == 0L && nx == ny && nx >= 0) nx * (positions.size - 1) + index else null
-        }.minOrNull() ?: "not possible"
+        }.minOrNull()
+        println(result ?: "not possible")
     }
 
     data class Point(val x: Long, val y: Long) {

@@ -2,6 +2,7 @@ package mdf.y2023
 
 import mdf.BaseTest
 import org.junit.Test
+import tools.read.readAllLines
 
 class MDFRound1 : BaseTest() {
     @Test
@@ -13,30 +14,34 @@ class MDFRound1 : BaseTest() {
     @Test
     fun test3() = test(16, ::p3)
 
-    private fun p1(lines: List<String>): Any {
+    private fun p1() {
         val pfc = "PFC"
-        return lines[0].toList().reduce { a, b ->
+        println(readln().toList().reduce { a, b ->
             when (pfc.indexOf(a) - pfc.indexOf(b)) {
                 1, -2 -> a
                 else -> b
             }
-        }
+        })
     }
 
-    private fun p2(lines: List<String>): Any {
-        val target = lines[1].toLong() - 1
-        val seasons = lines[2].split(" ").map { it.toLong() }
+    private fun p2() {
+        readln()
+        val target = readln().toLong() - 1
+        val seasons = readln().split(" ").map { it.toLong() }
         var targetInYear = target % seasons.sum()
         seasons.forEachIndexed { index, d ->
-            if (targetInYear < d) return index + 1
+            if (targetInYear < d) {
+                println(index + 1)
+                return
+            }
             targetInYear -= d
         }
-        return -1
+        println(-1)
     }
 
-    private fun p3(lines: List<String>): Any {
-        val (n, _, e) = lines[0].split(" ").map { it.toInt() }
-        val lifts = lines.drop(1).map {
+    private fun p3() {
+        val (n, _, e) = readln().split(" ").map { it.toInt() }
+        val lifts = readAllLines().map {
             val (a, b) = it.split(" ").map { it.toInt() }
             a..b
         }
@@ -46,6 +51,6 @@ class MDFRound1 : BaseTest() {
             if (max == current) break
             current = max
         }
-        return if (current == n) "YES" else "NO"
+        println(if (current == n) "YES" else "NO")
     }
 }

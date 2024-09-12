@@ -2,6 +2,8 @@ package mdf.y2019
 
 import mdf.BaseTest
 import org.junit.Test
+import tools.read.readAllLines
+import tools.text.toInts
 
 class MDFa : BaseTest() {
     @Test
@@ -13,13 +15,14 @@ class MDFa : BaseTest() {
     @Test
     fun test3() = test(7, ::p3)
 
-    private fun p1(lines: List<String>): Any {
-        return lines.drop(1).filter { it == it.reversed() }.joinToString(" ")
+    private fun p1() {
+        println(readAllLines().drop(1).filter { it == it.reversed() }.joinToString(" "))
     }
 
-    private fun p2(lines: List<String>): Any {
-        val myDeck = lines[2].split(" ").map { it.toInt() }.toMutableList()
-        val hisDeck = lines[1].split(" ").map { it.toInt() }.toMutableList()
+    private fun p2() {
+        readln()
+        val hisDeck = readln().toInts().toMutableList()
+        val myDeck = readln().toInts().toMutableList()
         while (myDeck.isNotEmpty() && hisDeck.isNotEmpty()) {
             val myCard = myDeck.removeAt(0)
             val hisCard = hisDeck.removeAt(0)
@@ -28,17 +31,17 @@ class MDFa : BaseTest() {
                 myCard < hisCard -> hisDeck.add(hisCard)
             }
         }
-        return when {
+        println(when {
             myDeck.isNotEmpty() -> "G"
             hisDeck.isNotEmpty() -> "P"
             else -> "N"
-        }
+        })
     }
 
-    private fun p3(lines: List<String>): Any {
-        val constraints = lines.drop(1).map { it.split(" ") }
+    private fun p3() {
+        val constraints = readAllLines().drop(1).map { it.split(" ") }
         val ingredients = constraints.flatMap { it.toList() }.toSet()
-        return findRecipe(constraints, ingredients, emptyList())?.joinToString(" < ") ?: "KO"
+        println(findRecipe(constraints, ingredients, emptyList())?.joinToString(" < ") ?: "KO")
     }
 
     private fun findRecipe(constraints: List<List<String>>, ingredients: Set<String>, recipe: List<String>): List<String>? {

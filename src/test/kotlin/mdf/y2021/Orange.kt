@@ -2,6 +2,8 @@ package mdf.y2021
 
 import mdf.BaseTest
 import org.junit.Test
+import tools.read.readAllLines
+import tools.text.toInts
 
 // println(p(lines))
 class Orange : BaseTest() {
@@ -17,20 +19,28 @@ class Orange : BaseTest() {
     @Test
     fun test4() = test(3, ::p4)
 
-    private fun p1(lines: List<String>) = lines[0].zip(lines[1]).joinToString("") { "${it.first}${it.second}" }
+    private fun p1() {
+        println(readln().zip(readln()).joinToString("") { "${it.first}${it.second}" })
+    }
 
-    private fun p2(lines: List<String>) = lines[1].split(" ").map { it.toInt() }.plus(0).zipWithNext { a, b ->
-        a * 4 - b.coerceAtMost(a)
-    }.sum()
+    private fun p2() {
+        val result = readln().toInts().plus(0).zipWithNext { a, b ->
+            a * 4 - b.coerceAtMost(a)
+        }.sum()
+        println(result)
+    }
 
-    private fun p3(lines: List<String>) = lines.drop(1).mapIndexed { index, line -> Field(index + 1, line) }.run {
-        map { field ->
-            field to Side.values().sumOf { d ->
-                val border = field.borders[d.opposite]!!
-                count { border.intersect(it.borders[d]!!) }
-            }
-        }.groupBy({ it.second }, { it.first }).maxBy { it.key }
-    }.run { "${value.size} $key\n" + value.joinToString(" ") { it.id.toString() } }
+    private fun p3() {
+        val result = readAllLines().drop(1).mapIndexed { index, line -> Field(index + 1, line) }.run {
+            map { field ->
+                field to Side.values().sumOf { d ->
+                    val border = field.borders[d.opposite]!!
+                    count { border.intersect(it.borders[d]!!) }
+                }
+            }.groupBy({ it.second }, { it.first }).maxBy { it.key }
+        }
+        println("${result.value.size} ${result.key}\n" + result.value.joinToString(" ") { it.id.toString() })
+    }
 
     private data class Border(val p: Int, val r: IntRange) {
         fun intersect(other: Border) =
@@ -54,8 +64,10 @@ class Orange : BaseTest() {
         val opposite get() = values().let { it[(ordinal + 2).mod(it.size)] }
     }
 
-    private fun p4(lines: List<String>) = lines.map { line -> line.split(" ").map { it.toInt() }}.let {
-        val target = it[0][1]
-        it[1].dropLastWhile { it != target } intersect it[2].dropLastWhile { it != target }
-    }.joinToString(" ")
+    private fun p4() {
+        val input = readAllLines().map { it.toInts() }
+        val target = input[0][1]
+        val result = input[1].dropLastWhile { it != target } intersect input[2].dropLastWhile { it != target }.toSet()
+        println(result.joinToString(" "))
+    }
 }

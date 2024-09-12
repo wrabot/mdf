@@ -2,7 +2,8 @@ package mdf.y2023
 
 import mdf.BaseTest
 import org.junit.Test
-import tools.match
+import tools.read.readAllLines
+import tools.text.match
 
 class CACollective : BaseTest() {
     @Test
@@ -12,21 +13,24 @@ class CACollective : BaseTest() {
     fun test2() = test(15, ::p2)
 
     @Test
-    fun test3() = test(1..18, ::p3)
+    fun test3() = test(18, ::p3)
 
-    private fun p1(lines: List<String>): Int {
+    private fun p1() {
         val servers = listOf(20 to 1000, 100 to 500, 200 to 300)
-        val activity = lines[0].dropLast(1).toInt()
+        val activity = readln().dropLast(1).toInt()
         val inactivity = 100 - activity
-        return servers.withIndex().minBy { it.value.run { first * inactivity + second * activity } }.index + 1
+        println(servers.withIndex().minBy { it.value.run { first * inactivity + second * activity } }.index + 1)
     }
 
-    private fun p2(lines: List<String>) = lines.drop(1).flatMap { it.windowed(10).distinct() }
-        .groupingBy { it }.eachCount().toList().sortedBy { it.first }.maxBy { it.second }.run { "$first $second" }
+    private fun p2() {
+        val result = readAllLines().drop(1).flatMap { it.windowed(10).distinct() }
+            .groupingBy { it }.eachCount().toList().sortedBy { it.first }.maxBy { it.second }.run { "$first $second" }
+        println(result)
+    }
 
-    private fun p3(lines: List<String>): String {
-        val (w, h) = lines[0].split(" ").map { it.toInt() }
-        val (d, i) = lines.drop(2).partition { it[0] == 'D' }.run {
+    private fun p3() {
+        val (w, h) = readln().split(" ").map { it.toInt() }
+        val (d, i) = readAllLines().drop(1).partition { it[0] == 'D' }.run {
             val dRegex = "D \\((.*),(.*)\\) \\((.*),(.*)\\)".toRegex()
             val iRegex = "I (.*)->(.*) (.*)->(.*)".toRegex()
             first.flatMap { line ->
@@ -40,9 +44,8 @@ class CACollective : BaseTest() {
             }
         }
         val room = Array(h) { BooleanArray(w) }
-        if (!solve(d, i, room)) return "IMPOSSIBLE"
-        require(room.check(d, i) == null)
-        return room.toText()
+        println(if (solve(d, i, room)) room.toText() else "IMPOSSIBLE")
+
     }
 
     private data class Chair(val x: Int, val y: Int)

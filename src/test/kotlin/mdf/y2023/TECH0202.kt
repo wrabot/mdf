@@ -4,9 +4,10 @@ import mdf.BaseTest
 import org.junit.Test
 import tools.Point
 import tools.XY
-import tools.board.Board
 import tools.board.toBoard
 import tools.graph.shortPath
+import tools.read.readAllLines
+import tools.read.readLines
 import tools.sequence.enumerate
 import tools.toPoint
 import java.math.BigDecimal
@@ -23,8 +24,8 @@ class TECH0202 : BaseTest() {
     @Test
     fun test3() = test(6, ::p3)
 
-    private fun p1(lines: List<String>): Int {
-        val clues = lines.drop(1).map { line ->
+    private fun p1() {
+        val clues = readAllLines().drop(1).map { line ->
             line.split(" ").map {
                 IndexedValue(
                     it.last().toString().toInt() - 1, when (it.first()) {
@@ -36,15 +37,16 @@ class TECH0202 : BaseTest() {
                 )
             }.toSet()
         }
-        return List(3) { it }.enumerate(5).map {
+        val result = List(3) { it }.enumerate(5).map {
             val combination = it.withIndex()
             clues.indexOfFirst { clue -> (combination intersect clue).isEmpty() }
         }.map { if (it == -1) clues.size else it }.max()
+        println(result)
     }
 
-    private fun p2(lines: List<String>): Int {
-        val board = lines.drop(1).toBoard { it }
-        return shortPath(
+    private fun p2() {
+        val board = readAllLines().drop(1).toBoard { it }
+        val path = shortPath(
             start = board.xy[board.cells.indexOf('P')],
             end = board.xy[board.cells.indexOf('X')]
         ) { c ->
@@ -61,13 +63,13 @@ class TECH0202 : BaseTest() {
                 }
                 n
             }
-        }.size - 1
+        }
+        println(path.size - 1)
     }
 
-    private fun p3(lines: List<String>): String {
-        val n = lines[0].toInt()
-        val top = lines.drop(1).take(n).toPoints()
-        val bottom = lines.drop(n + 2).toPoints()
+    private fun p3() {
+        val top = readLines(readln().toInt()).toPoints()
+        val bottom = readLines(readln().toInt()).toPoints()
         var t = 1
         var b = 1
         val points = mutableListOf(top[0])
@@ -91,10 +93,8 @@ class TECH0202 : BaseTest() {
             })
         }
         val shape = Shape(points)
-        return listOf(
-            shape.findAbscissaFromArea(shape.areas.last() / 3),
-            shape.findAbscissaFromArea(shape.areas.last() * 2 / 3),
-        ).joinToString("\n")
+        println(shape.findAbscissaFromArea(shape.areas.last() / 3))
+        println(shape.findAbscissaFromArea(shape.areas.last() * 2 / 3))
     }
 
     private fun List<String>.toPoints() = map { it.toPoint(" ") }

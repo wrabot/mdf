@@ -2,6 +2,7 @@ package mdf.y2023
 
 import mdf.BaseTest
 import org.junit.Test
+import tools.read.readAllLines
 import tools.toPoint
 
 class CDCFinal : BaseTest() {
@@ -17,42 +18,46 @@ class CDCFinal : BaseTest() {
     @Test
     fun test4() = test(11, ::p4)
 
-    private fun p1(lines: List<String>) = lines[0].toList().run {
-        listOf(
-            sorted().toMutableList().apply {
+    private fun p1() {
+        val input = readln().toList()
+        println(
+            input.sorted().toMutableList().apply {
                 val i = indexOfFirst { it != '0' }
                 if (i > 0) add(0, removeAt(i))
-            },
-            sortedDescending()
-        ).joinToString("\n") { it.joinToString("") }
+            }.joinToString("")
+        )
+        println(input.sortedDescending().joinToString(""))
     }
 
-    private fun p2(lines: List<String>): Any {
-        val start = lines[0]
-        val end = lines[1]
-        val transits = lines.drop(4).map { it.split(" ").toSet() }
-        return transits.first { start in it }.intersect(transits.first { end in it }).single()
+    private fun p2() {
+        val start = readln()
+        val end = readln()
+        val transits = readAllLines().drop(2).map { it.split(" ").toSet() }
+        println(transits.first { start in it }.intersect(transits.first { end in it }).single())
     }
 
-    private fun p3(lines: List<String>): Any {
-        val center = lines[0].toPoint(" ")
-        val radius2 = lines[1].toDouble().let { it * it }
+    private fun p3() {
+        val center = readln().toPoint(" ")
+        val radius2 = readln().toDouble().let { it * it }
         var count = 0
         var consecutive = 0
-        lines.drop(3).forEach {
+        readAllLines().drop(1).forEach {
             if ((it.toPoint(" ") - center).norm2() <= radius2) {
                 if (++consecutive == 2) count++
             } else {
                 consecutive = 0
             }
         }
-        return count
+        println(count)
     }
 
-    private fun p4(lines: List<String>): String {
-        val rows = lines[1].alternateSum()
-        val columns = lines[2].alternateSum()
-        return "${rows.first * columns.first + rows.second * columns.second} ${rows.second * columns.first + rows.first * columns.second}"
+    private fun p4() {
+        readln()
+        val rows = readln().alternateSum()
+        val columns = readln().alternateSum()
+        val p = rows.first * columns.first + rows.second * columns.second
+        val v = rows.second * columns.first + rows.first * columns.second
+        println("$p $v")
     }
 
     private fun String.alternateSum() = split(" ").chunked(2).fold(0L to 0L) { acc, s ->

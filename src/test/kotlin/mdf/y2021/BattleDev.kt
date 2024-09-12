@@ -6,6 +6,9 @@ import tools.XY
 import tools.board.toBoard
 import tools.graph.distances
 import tools.optimization.knapsackValue
+import tools.read.readAllLines
+import tools.read.readLines
+import tools.text.toInts
 import tools.toXY
 
 class BattleDev : BaseTest() {
@@ -27,26 +30,28 @@ class BattleDev : BaseTest() {
     @Test
     fun test6() = test(10, ::p6)
 
-    private fun p1(lines: List<String>): Int {
-        val d = lines[0].toInt()
-        val l = lines[1].toInt()
-        return d + 5 * l
+    private fun p1() {
+        val d = readln().toInt()
+        val l = readln().toInt()
+        println(d + 5 * l)
     }
 
-    private fun p2(lines: List<String>) =
-        lines.drop(1).groupingBy { it }.eachCount().filterValues { it == 2 }.keys.first()
+    private fun p2() =
+        println(readAllLines().drop(1).groupingBy { it }.eachCount().filterValues { it == 2 }.keys.first())
 
-    private fun p3(lines: List<String>): String {
-        val board = lines.toBoard { it }
-        return board.xRange.firstOrNull { x ->
+    private fun p3() {
+        val board = readAllLines().toBoard { it }
+        val result = board.xRange.firstOrNull { x ->
             val bottom = board.yRange.firstOrNull { y -> board[x, y] != '.' } ?: board.height
             if (bottom < 4) return@firstOrNull false
             (bottom - 4 until bottom).all { y -> board.xRange.all { it == x || board[it, y] == '#' } }
         }?.let { "BOOM ${it + 1}" } ?: "NOPE"
+        println(result)
     }
 
-    private fun p4(lines: List<String>): Int {
-        val trash = lines[1]
+    private fun p4() {
+        readln()
+        val trash = readln()
         val size = trash.length
         val cache = mutableListOf(mapOf(trash.first() to 1))
         repeat(size - 1) {
@@ -56,17 +61,18 @@ class BattleDev : BaseTest() {
             cache.add(map)
         }
         val total = cache[trash.lastIndex]
-        return (0 until size / 2).count { i ->
+        val result = (0 until size / 2).count { i ->
             total.all { it.value == (cache[i + size / 2].getOrZero(it.key) - cache[i].getOrZero(it.key)) * 2 }
         } * 2
+        println(result)
     }
 
     private fun Map<Char, Int>.getOrZero(key: Char) = getOrDefault(key, 0)
 
-    private fun p5(lines: List<String>): Int {
-        val (_, on, off) = lines[0].split(" ").map(String::toInt)
+    private fun p5() {
+        val (_, on, off) = readln().toInts()
         val cycle = on + off
-        val asteroids = lines[1].split(" ").map(String::toInt)
+        val asteroids = readln().toInts()
         var shield = 0
         val cache = IntArray(asteroids.size + cycle) // + cycle to avoid index issue
         asteroids.indices.reversed().forEach {
@@ -74,26 +80,19 @@ class BattleDev : BaseTest() {
             shield += asteroids[it]
             cache[it] = cache[it + 1].coerceAtLeast(shield + cache[it + cycle])
         }
-        return asteroids.sum() - cache[0]
+        println(asteroids.sum() - cache[0])
     }
 
-    private fun p6(lines: List<String>): Int {
+    private fun p6() {
         // parsing
-        var start = 1
-        var end = start + lines[0].split(" ").first().toInt()
-        val galaxy = lines.subList(start, end).toBoard { it }
-        start = end
-        end += 1 + lines[start++].split(" ").first().toInt()
-        val planetPattern = lines.subList(start, end).toBoard { it }
-        val structural = lines[++end].split(" ").map { it.first() }
-        start = ++end + 1
-        end = start + lines[end].toInt()
-        val minerals = lines.subList(start, end).toMap()
-        start = end
-        end = start + structural.size + minerals.size
-        val costs = lines.subList(start, end).toMap()
-        val base = lines[end++].toXY(" ").run { XY(y, x) }
-        val days = lines[end].toInt()
+        val galaxy = readLines(readln().toInts().first()).toBoard { it }
+        val planetPattern = readLines(readln().toInts().first()).toBoard { it }
+        readln() // ignore structural size
+        val structural = readln().filter { it.isLetter() }.toList()
+        val minerals = readLines(readln().toInt()).toMap()
+        val costs = readLines(structural.size + minerals.size).toMap()
+        val base = readln().toInts().let { XY(it[1], it[0]) }
+        val days = readln().toInt()
 
         // planet matching
         val planetInside = planetPattern.xy.filter { planetPattern[it] == '*' }
@@ -123,7 +122,7 @@ class BattleDev : BaseTest() {
             cost to planetInside.sumOf { minerals[galaxy[xy + it]]!! }.toDouble()
         }
 
-        return knapsackValue(mining, days).toInt()
+        println(knapsackValue(mining, days).toInt())
     }
 
     private fun List<String>.toMap() = associate {

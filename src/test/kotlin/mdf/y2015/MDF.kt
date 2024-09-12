@@ -3,6 +3,8 @@ package mdf.y2015
 import mdf.BaseTest
 import org.junit.Test
 import tools.board.toBoard
+import tools.read.readAllLines
+import tools.text.toInts
 
 class MDF : BaseTest() {
     @Test
@@ -26,41 +28,53 @@ class MDF : BaseTest() {
     @Test
     fun test7() = test(2, ::p7)
 
-    private fun p1(lines: List<String>) = lines.drop(2).fold(lines[0].toInt()) { acc, line ->
-        val (x, y) = line.split(" ").map { it.toInt() }
-        acc - x + y
+    private fun p1() {
+        var i = readln().toInt()
+        val size = readln().toInt()
+        repeat(size) { 
+            val (x, y) = readln().toInts()
+            i += y - x
+        }
+        println(i)
     }
 
-    private fun p2(lines: List<String>) = lines.drop(1).groupingBy { it }.eachCount().toList()
-        .sortedByDescending { it.second }.take(5).joinToString("\n") { "${it.first} ${it.second}" }
+    private fun p2() {
+        val result = readAllLines().drop(1).groupingBy { it }.eachCount().toList()
+            .sortedByDescending { it.second }.take(5).joinToString("\n") { "${it.first} ${it.second}" }
+        println(result)
+    }
 
-    private fun p3(lines: List<String>): Any {
-        val countries = lines[1].split(";").toSet()
-        val entries = lines.drop(2).map { it.split(";") }
+    private fun p3() {
+        readln()
+        val countries = readln().split(";").toSet()
+        val entries = readAllLines().map { it.split(";") }
         val distincts = entries.distinctBy { it.take(3) }
         val duplicates = entries.size - distincts.size
         val regex = "\\+\\d{1,3}-\\d{9,11}".toRegex()
         val invalidNumber = distincts.count { !regex.matches(it[3]) }
         val invalidCountries = distincts.count { it.last() !in countries }
-        return "$duplicates $invalidNumber $invalidCountries"
+        println("$duplicates $invalidNumber $invalidCountries")
     }
 
-    private fun p4(lines: List<String>) = lines.drop(1).windowed(60, 1).firstNotNullOfOrNull { w ->
-        w.groupingBy { it }.eachCount().firstNotNullOfOrNull { if (it.value >= 40) it.key else null }
-    } ?: "Pas de trending topic"
+    private fun p4() {
+        val result = readAllLines().drop(1).windowed(60, 1).firstNotNullOfOrNull { w ->
+            w.groupingBy { it }.eachCount().firstNotNullOfOrNull { if (it.value >= 40) it.key else null }
+        }
+        println(result ?: "Pas de trending topic")
+    }
 
-    private fun p5(lines: List<String>): Int {
-        val (identical, different) = lines.drop(1).map {
+    private fun p5() {
+        val (identical, different) = readAllLines().drop(1).map {
             val (t, l) = it.split(" ")
             Triple(t.first(), l.toInt(), t.last())
         }.sortedByDescending { it.second }.partition { it.first == it.third }
         val (m, f) = identical.partition { it.first == 'M' }
-        return different.sumOf { it.second } + m.zip(f) { a, b -> a.second + b.second }.sum()
+        println(different.sumOf { it.second } + m.zip(f) { a, b -> a.second + b.second }.sum())
     }
 
-    // FiXME timeout on server 
-    private fun p6(lines: List<String>): Int {
-        var rectangles = lines.drop(1).map {
+    // FIXME timeout on server 
+    private fun p6() {
+        var rectangles = readAllLines().drop(1).map {
             val (l, t, r, b) = it.split(" ").map(String::toInt)
             Rect(l..r, t..b)
         }
@@ -83,7 +97,7 @@ class MDF : BaseTest() {
             }
             duration++
         }
-        return duration
+        println(duration)
     }
 
     private data class Rect(val xRange: IntRange, val yRange: IntRange) {
@@ -91,19 +105,19 @@ class MDF : BaseTest() {
         fun isEmpty() = xRange.isEmpty() || yRange.isEmpty()
     }
 
-    private fun p7(lines: List<String>): Int {
-        val board = lines.drop(1).toBoard { Cell(it) }
+    private fun p7() {
+        val board = readAllLines().drop(1).toBoard { Cell(it) }
         do {
             var isModified = false
-            board.xy.forEach {
-                val min = board.neighbors4(it).minOf { board[it].depth } + 1
-                if (min < board[it].depth) {
-                    board[it].depth = min
+            board.xy.forEach { xy ->
+                val min = board.neighbors4(xy).minOf { board[it].depth } + 1
+                if (min < board[xy].depth) {
+                    board[xy].depth = min
                     isModified = true
                 }
             }
         } while (isModified)
-        return board.cells.maxOf { it.depth }
+        println(board.cells.maxOf { it.depth })
     }
 
     private data class Cell(val c: Char, var depth: Int = if (c == '#') Int.MAX_VALUE else 0)

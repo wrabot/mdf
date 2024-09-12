@@ -2,6 +2,7 @@ package mdf.y2023
 
 import mdf.BaseTest
 import org.junit.Test
+import tools.read.readAllLines
 
 class MDFFinal : BaseTest() {
     @Test
@@ -13,16 +14,16 @@ class MDFFinal : BaseTest() {
     @Test
     fun test3() = test(0, ::p3)
 
-    private fun p1(lines: List<String>): Any {
-        return lines.drop(1).map { it.split(" ") }
+    private fun p1() {
+        readAllLines().drop(1).map { it.split(" ") }
             .groupBy({ it[1] }, { it[0] }).values.mapNotNull { it.singleOrNull()?.toInt() }.sorted()
-            .joinToString("\n")
+            .forEach { println(it) }
     }
 
-    private fun p2(lines: List<String>): Any {
-        val (n, _, _) = lines[0].split(" ").map { it.toInt() }
-        val cheaters = lines[1].split(" ").map { it.toInt() }.toMutableSet()
-        val routes = lines.drop(2).map { line -> line.split(" ").map { it.toInt() } }
+    private fun p2() {
+        val (n, _, _) = readln().split(" ").map { it.toInt() }
+        val cheaters = readln().split(" ").map { it.toInt() }.toMutableSet()
+        val routes = readAllLines().map { line -> line.split(" ").map { it.toInt() } }
             .flatMap { listOf(it[0] to it[1], it[1] to it[0]) }.groupBy({ it.first }, { it.second })
         val winners = mutableSetOf(1)
         val free = (1..n).minus(winners).minus(cheaters).toMutableSet()
@@ -36,10 +37,9 @@ class MDFFinal : BaseTest() {
                 winners.addAll(this)
             }
         }
-        return winners.sorted().joinToString(" ")
+        println(winners.sorted().joinToString(" "))
     }
 
-    private fun p3(lines: List<String>): Any {
-        return lines
-    }
+    //TODO
+    private fun p3() {}
 }

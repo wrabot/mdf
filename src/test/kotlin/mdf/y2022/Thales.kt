@@ -2,8 +2,9 @@ package mdf.y2022
 
 import mdf.BaseTest
 import org.junit.Test
-import tools.log
+import tools.read.readAllLines
 import tools.sequence.combinations
+import tools.text.toInts
 
 class Thales : BaseTest() {
     @Test
@@ -19,27 +20,28 @@ class Thales : BaseTest() {
     fun test4() = test(0, ::p4)
 
 
-    private fun p1(lines: List<String>): Int {
-        return lines[0].toInt().square() - lines[1].toInt().square()
-    }
+    private fun p1() = println(readln().toInt().square() - readln().toInt().square())
 
     private fun Int.square() = this * this
 
-    private fun p2(lines: List<String>): Int {
-        val tanks = lines[1].split(" ").map(String::toInt)
+    private fun p2() {
+        readln()
+        val tanks = readln().toInts()
         val max = tanks.max()
-        return tanks.sumOf { max - it }
+        println(tanks.sumOf { max - it })
     }
 
     // TODO test on server 
-    private fun p3(lines: List<String>) = (0..4).toList().combinations().minBy { c ->
-        c.map { i -> lines[i].filter { it.isDigit() } }.reduce { a, b ->
-            val i = (4 downTo 0).first { a.substring(a.length - it) == b.substring(0, it) }
-            a + b.substring(i)
-        }.length
-    }.map { 'A' + it }.joinToString("")
-
-    private fun p4(lines: List<String>): Any {
-        return lines
+    private fun p3() {
+        val input = readAllLines().map { line -> line.filter { it.isDigit() } }
+        val result = (0..4).toList().combinations().minBy { c ->
+            c.map { i -> input[i] }.reduce { a, b ->
+                val i = (4 downTo 0).first { a.substring(a.length - it) == b.substring(0, it) }
+                a + b.substring(i)
+            }.length
+        }
+        println(result.map { 'A' + it }.joinToString(""))
     }
+
+    private fun p4() {}
 }
