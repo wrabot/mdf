@@ -14,7 +14,7 @@ import org.jetbrains.kotlin.psi.psiUtil.getChildrenOfType
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.rules.TestName
-import tools.log
+import tools.debug
 import java.io.ByteArrayOutputStream
 import java.io.File
 import java.io.PrintStream
@@ -37,7 +37,7 @@ open class BaseTest {
     fun test(inputs: List<Int>, block: () -> Unit) {
         val root = "./src/test/resources/"
         val path = "$dir/${testName.methodName}"
-        log("start test $path")
+        debug("start test $path")
         val stdIn = System.`in`
         val stdOut = System.out
         try {
@@ -45,9 +45,9 @@ open class BaseTest {
                 val output = ByteArrayOutputStream()
                 System.setIn(File("$root$path/input$index.txt").inputStream())
                 System.setOut(PrintStream(output, true))
-                log("start test $path input $index")
+                debug("start test $path input $index")
                 val duration = measureTime { block() }
-                log("duration $duration")
+                debug("duration $duration")
                 Assert.assertEquals(
                     File("$root$path/output$index.txt").readText(),
                     output.toString().trimEnd('\n')
