@@ -12,5 +12,5 @@ dependencies {
     // to test new CompetitiveTools
     //testImplementation("wrabot.competitive:CompetitiveTools") { version { branch = "main" } }
     testImplementation("junit:junit:4.13.2")
-    testImplementation("org.jetbrains.kotlin:kotlin-compiler-embeddable:1.7.10")
+    testImplementation(project("generate"))
 }

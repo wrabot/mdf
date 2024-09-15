@@ -2,9 +2,10 @@ package mdf
 
 import org.junit.Test
 
-class Playground : BaseTest() {
+@Suppress("MemberVisibilityCanBePrivate")
+class Playground : BaseTest(false) {
     @Test
-    fun run() = test(0, ::solve)
+    fun run() = test(0, ::main)
 
-    private fun solve() {}
+    fun main() {}
 }
