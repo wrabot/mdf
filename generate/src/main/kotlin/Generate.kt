@@ -13,7 +13,7 @@ import java.io.File
 
 fun generateFile(packageName: String, className: String, methodName: String, generateMain: Boolean) {
     // input for generation
-    val stdImports = mutableListOf<FqName>()
+    val stdImports = mutableSetOf<FqName>()
     val start: String
     val components = mutableSetOf<KtElement>()
     val files = mutableSetOf<KtFile>()
@@ -25,7 +25,7 @@ fun generateFile(packageName: String, className: String, methodName: String, gen
 
     // generate
     val generated = listOfNotNull(
-        stdImports.joinToString("\n") { "import $it" },
+        stdImports.map { "import $it" }.sorted().joinToString("\n"),
         if (generateMain) "fun main() = $start()" else null,
         *components.map { "    ${it.text}".trimIndent() }.toTypedArray(),
         *files.flatMap { file -> file.findChildrenByClass(KtNamedDeclaration::class.java).map { it.text } }
@@ -60,7 +60,7 @@ private fun findTestClass(
     return start
 }
 
-private fun MutableList<FqName>.findLibs(stdImports: MutableList<FqName>, files: MutableSet<KtFile>) {
+private fun MutableList<FqName>.findLibs(stdImports: MutableSet<FqName>, files: MutableSet<KtFile>) {
     val toolsName = Name.identifier("tools")
     while (true) {
         val import = removeLastOrNull() ?: break
