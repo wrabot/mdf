@@ -56,9 +56,12 @@ private fun findTestClass(
         done.add(r)
         components.addAll(body[r].orEmpty().onEach { todo.addAll(it.names()) })
     }
-    imports.addAll(testClass.containingKtFile.imports.filter { it.shortName().asString() in done })
+    imports.addAll(testClass.containingKtFile.imports.filter { it.isStd() || it.shortName().asString() in done })
     return start
 }
+
+private val stdNames = listOf("java", "kotlin").map { Name.identifier(it) }
+private fun FqName.isStd() = shortName().asString() == "*" && stdNames.any { startsWith(it) }
 
 private fun MutableList<FqName>.findLibs(stdImports: MutableSet<FqName>, files: MutableSet<KtFile>) {
     val toolsName = Name.identifier("tools")
@@ -81,7 +84,10 @@ private fun MutableList<FqName>.findLibs(stdImports: MutableSet<FqName>, files: 
 private fun PsiElement.names(): Set<String> =
     getChildrenOfType<KtNameReferenceExpression>().map { it.text }.toSet() + children.flatMap { it.names() }
 
-private val KtFile.imports get() = importDirectives.mapNotNull { it.importPath?.fqName }
+private val KtFile.imports
+    get() = importDirectives.mapNotNull {
+        it.importPath?.run { if (it.isAllUnder) fqName.child(Name.identifier("*")) else fqName }
+    }
 
 private val environment by lazy {
     val tools = File(".gradle/vcs-1").listFiles()!!.filter { it.isDirectory }.maxBy { it.lastModified() }
