@@ -28,6 +28,7 @@ fun generateFile(packageName: String, className: String, methodName: String, gen
         stdImports.map { "import $it" }.sorted().joinToString("\n"),
         if (generateMain) "fun main() = $start()" else null,
         *components.map { "    ${it.text}".trimIndent() }.toTypedArray(),
+        "\n// competitive tools\n",
         *files.flatMap { file -> file.findChildrenByClass(KtNamedDeclaration::class.java).map { it.text } }
             .toTypedArray()
     )
