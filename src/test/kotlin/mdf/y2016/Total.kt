@@ -68,9 +68,9 @@ class Total : BaseTest() {
     private fun p5() {
         val lines = readAllLines()
         val result = lines.flatMap { line -> "\\w+".toRegex().findAll(line.lowercase()).map { it.value }.distinct() }
-            .groupingBy { it }.eachCount().filter { it.value < lines.size }
-            .toList().sortedBy { it.first }.sortedByDescending { it.second }.take(3)
-        println(result.joinToString("\n") { "${it.second} ${it.first}" })
+            .groupingBy { it }.eachCount().asSequence().filter { it.value < lines.size }
+            .sortedBy { it.key }.sortedByDescending { it.value }.take(3).toList()
+        println(result.joinToString("\n") { "${it.value} ${it.key}" })
     }
 
     private fun p6() {

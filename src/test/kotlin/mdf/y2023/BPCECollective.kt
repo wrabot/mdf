@@ -41,7 +41,7 @@ class BPCECollective : BaseTest() {
             map.cells.indexOf('B'),
             cost = { _, b -> map.cells[b].cost() }
         ) {
-            map.neighbors4(map.xy[it]).map { map.indexOf(it)!! }
+            map.neighbors4(map.xy[it]).mapNotNull(map::indexOf)
         }
         println(path.zipWithNext { _, b -> map.cells[b].cost() }.sum().toInt())
     }

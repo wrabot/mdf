@@ -32,7 +32,7 @@ class Thales : BaseTest() {
             line.split(" - ").let { it[0].toMinutes() until it[1].toMinutes() }
         }
         val result = List(input.size) { index ->
-            val other = input.get(index)
+            val other = input[index]
             input.drop(index + 1).count { (it intersect other).size >= 15 }
         }.sum()
         println(result)

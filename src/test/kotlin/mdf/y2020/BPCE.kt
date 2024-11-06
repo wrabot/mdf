@@ -4,6 +4,7 @@ import mdf.BaseTest
 import org.junit.Test
 import tools.graph.distances
 import tools.range.merge
+import tools.range.move
 import tools.range.size
 import tools.read.readAllLines
 import tools.text.toWords
@@ -25,7 +26,7 @@ class BPCE : BaseTest() {
     fun test5() = test(2, ::p5)
 
     private fun p1() {
-        val result = readAllLines().drop(1).map { it.toWords() }.groupBy({ it[1] }, { it[0] })
+        val result = readAllLines().asSequence().drop(1).map { it.toWords() }.groupBy({ it[1] }, { it[0] })
             .mapNotNull { it.value.singleOrNull() }.first()
         println(result)
     }
@@ -56,7 +57,6 @@ class BPCE : BaseTest() {
         println(result)
     }
 
-    private fun LongRange.move(offset: Int) = first + offset..last + offset
     private fun Long.toTime() = "${((this / 60) % 24).pad()}:${(this % 60).pad()}"
     private fun Long.pad() = toString().padStart(2, '0')
 

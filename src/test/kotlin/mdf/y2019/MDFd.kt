@@ -19,7 +19,7 @@ class MDFd : BaseTest() {
         val (myStart, myLine) = readln().toInts()
         val (hisStart, hisLine) = readln().toInts()
         val myStops = (myStart..36 step myLine).toList()
-        val hisStops = (hisStart..36 step hisLine).toList()
+        val hisStops = (hisStart..36 step hisLine).toSet()
         println((myStops intersect hisStops).first())
     }
 

@@ -41,8 +41,8 @@ class MDFRound1 : BaseTest() {
 
     private fun p3() {
         val (n, _, e) = readln().split(" ").map { it.toInt() }
-        val lifts = readAllLines().map {
-            val (a, b) = it.split(" ").map { it.toInt() }
+        val lifts = readAllLines().map { line ->
+            val (a, b) = line.split(" ").map { it.toInt() }
             a..b
         }
         var current = e

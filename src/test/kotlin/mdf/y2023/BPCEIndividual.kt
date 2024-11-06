@@ -30,6 +30,7 @@ class BPCEIndividual : BaseTest() {
     // the first one : find the short path to ensure a solution exist and a recursive search to find an optimal
     // the second one : use a cache for node with depth in reverse way
 
+    @Suppress("unused")
     private fun p3a() {
         val (n, _, k) = readln().split(" ")
         val graph = readAllLines().map { it.split(" ") }.groupBy({ it.first() }, { it.last() })

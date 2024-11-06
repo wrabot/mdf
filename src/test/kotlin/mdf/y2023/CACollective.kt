@@ -50,10 +50,11 @@ class CACollective : BaseTest() {
 
     private data class Chair(val x: Int, val y: Int)
 
-    private fun Array<BooleanArray>.toText() = joinToString("\n") {
-        it.joinToString("") { if (it) "B" else "A" }
+    private fun Array<BooleanArray>.toText() = joinToString("\n") { row ->
+        row.joinToString("") { if (it) "B" else "A" }
     }
 
+    @Suppress("unused")
     private fun Array<BooleanArray>.check(d: Map<Chair, List<Chair>>, i: List<Pair<IntRange, IntRange>>): Any? {
         indices.forEach { y ->
             get(y).indices.forEach { x ->

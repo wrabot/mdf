@@ -9,7 +9,6 @@ import tools.optimization.knapsackValue
 import tools.read.readAllLines
 import tools.read.readLines
 import tools.text.toInts
-import tools.toXY
 
 class BattleDev : BaseTest() {
     @Test

@@ -43,7 +43,7 @@ class MDFe : BaseTest() {
         while (points.isNotEmpty()) {
             points.removeAll(zone(points.first()) { xy ->
                 board.neighbors4(xy).filter { board[it] == 'X' }
-            })
+            }.toSet())
             count++
         }
         println(count)

@@ -12,7 +12,7 @@ import kotlin.time.ExperimentalTime
 import kotlin.time.measureTime
 
 
-open class BaseTest(val generateMain: Boolean = true) {
+open class BaseTest(private val generateMain: Boolean = true) {
     private val dir = javaClass.name.removePrefix("mdf.").replace('.', '/')
 
     @Rule
