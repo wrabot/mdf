@@ -1,0 +1,6 @@
+5
+Italie 12 13 15
+Japon 20 12 13
+Republique-de-Coree 13 9 10
+Allemagne 12 13 8
+France 16 26 22

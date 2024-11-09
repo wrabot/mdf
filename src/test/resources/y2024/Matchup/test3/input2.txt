@@ -1,0 +1,9 @@
+8 8
+>vvvvvv<
+>>vv<v>v
+^<v>v>vv
+>^<<vvvv
+>^v<<<vv
+v>v^<v<v
+vv<<v<<<
+vvvv<v>v

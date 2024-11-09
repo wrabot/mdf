@@ -1,0 +1,8 @@
+7
+Singapour 2 1 0
+Iran 8 10 7
+Ouzbekistan 10 9 7
+Tunisie 5 3 3
+Suisse 8 8 5
+Canada 10 9 10
+Ethiopie 2 1 0
