@@ -11,7 +11,7 @@ import org.jetbrains.kotlin.psi.psiUtil.findDescendantOfType
 import org.jetbrains.kotlin.psi.psiUtil.getChildrenOfType
 import java.io.File
 
-fun generateFile(packageName: String, className: String, methodName: String, generateMain: Boolean) {
+fun generateFile(packageName: String, className: String, methodName: String, generateMain: Boolean, compact: Boolean) {
     // input for generation
     val stdImports = mutableSetOf<FqName>()
     val start: String
@@ -28,12 +28,28 @@ fun generateFile(packageName: String, className: String, methodName: String, gen
         stdImports.map { "import $it" }.sorted().joinToString("\n"),
         if (generateMain) "fun main() = $start()" else null,
         *components.map { "    ${it.text}".trimIndent() }.toTypedArray(),
-        "\n// competitive tools\n",
+        if (compact) null else "\n// competitive tools\n",
         *files.flatMap { file -> file.findChildrenByClass(KtNamedDeclaration::class.java).map { it.text } }
             .toTypedArray()
     )
-    File("build/generated.kt").writeText(generated.joinToString("\n\n", postfix = "\n").trimStart())
+    File("build/generated.kt").writeText(generated.format(compact))
 }
+
+private fun List<String>.format(compact: Boolean) = if (compact) {
+    flatMap { block -> block.lines().filter { it.isNotBlank() }.map { it.trim() } }.joinToString("\n")
+        .compact(listOf('{', '}', '(', ')', ',', ':', '|', '&', '!', '=', '<', '>', '+', '-', '*', '/'))
+        .compact('{', '}').compact('(', ')').apply { println(length) }
+} else {
+    joinToString("\n\n", postfix = "\n").trimStart()
+}
+
+private fun String.compact(chars: List<Char>) = chars.fold(this) { s, c ->
+    s.replace(" *\\$c *".toRegex(), "$c")
+}
+
+private fun String.compact(start: Char, end: Char) =
+    replace("$start\n", "$start").replace("\n$end", "$end")
+
 
 private fun findTestClass(
     packageName: String,

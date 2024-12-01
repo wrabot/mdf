@@ -12,7 +12,7 @@ import kotlin.time.ExperimentalTime
 import kotlin.time.measureTime
 
 
-open class BaseTest(private val generateMain: Boolean = true) {
+open class BaseTest(private val generateMain: Boolean = true, private val compact: Boolean = false) {
     private val dir = javaClass.name.removePrefix("mdf.").replace('.', '/')
 
     @Rule
@@ -47,6 +47,6 @@ open class BaseTest(private val generateMain: Boolean = true) {
             System.setIn(stdIn)
             System.setOut(stdOut)
         }
-        generateFile(javaClass.packageName, javaClass.simpleName, testName.methodName, generateMain)
+        generateFile(javaClass.packageName, javaClass.simpleName, testName.methodName, generateMain, compact)
     }
 }
