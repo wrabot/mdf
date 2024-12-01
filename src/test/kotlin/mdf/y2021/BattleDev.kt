@@ -4,7 +4,7 @@ import mdf.BaseTest
 import org.junit.Test
 import tools.XY
 import tools.board.toBoard
-import tools.graph.distances
+import tools.graph.distancesFromOneToAll
 import tools.optimization.knapsackValue
 import tools.read.readAllLines
 import tools.read.readLines
@@ -111,7 +111,7 @@ class BattleDev : BaseTest() {
         val neighbors = galaxy.xy.map { xy ->
             galaxy.neighbors4(xy).associate { galaxy.indexOf(it)!! to costs[galaxy[it]]!!.toDouble() }
         }
-        val distances = distances(galaxy.xy.size, galaxy.indexOf(base)!!) { neighbors[it] }.mapIndexed { index, d ->
+        val distances = distancesFromOneToAll(galaxy.xy.size, galaxy.indexOf(base)!!) { neighbors[it] }.mapIndexed { index, d ->
             baseCost + 2 * d.toInt() - costs[galaxy.cells[index]]!!
         }
 

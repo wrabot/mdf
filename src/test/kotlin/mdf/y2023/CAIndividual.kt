@@ -2,7 +2,7 @@ package mdf.y2023
 
 import mdf.BaseTest
 import org.junit.Test
-import tools.graph.distances
+import tools.graph.distancesFromOneToAll
 import tools.read.readAllLines
 import tools.read.readLines
 
@@ -41,8 +41,8 @@ class CAIndividual : BaseTest() {
         }.groupBy({ it.first.toInt() }, { it.second }).mapValues { (_, value) ->
             value.groupBy({ it.first.toInt() }, { it.second.toDouble() }).mapValues { it.value.min() }
         }
-        val a = distances(n + 2, 0) { graph[it].orEmpty() }
-        val b = distances(n + 2, n + 1) { graph[it].orEmpty() }
+        val a = distancesFromOneToAll(n + 2, 0) { graph[it].orEmpty() }
+        val b = distancesFromOneToAll(n + 2, n + 1) { graph[it].orEmpty() }
         println((1..n).joinToString(" ") { (a[it] + b[it]).toInt().toString() })
     }
 }

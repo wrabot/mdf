@@ -2,7 +2,7 @@ package mdf.y2019
 
 import mdf.BaseTest
 import org.junit.Test
-import tools.graph.munkres
+import tools.optimization.taskAssignment
 import tools.read.readAllLines
 import tools.text.toInts
 
@@ -56,7 +56,7 @@ class MDFc : BaseTest() {
                 relations[s.id].orEmpty().intersect(relations[l.id].orEmpty()).count()
             }
         }
-        val result = munkres(groups.first.size, groups.second.size) { r, c ->
+        val result = taskAssignment(groups.first.size, groups.second.size) { r, c ->
             val v = costs[r][c]
             // FIXME -v is not working why ? -v seems better then 1/v
             if (v == 0) 999999999 else 1000000 / v

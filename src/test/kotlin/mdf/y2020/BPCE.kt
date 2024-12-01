@@ -2,7 +2,7 @@ package mdf.y2020
 
 import mdf.BaseTest
 import org.junit.Test
-import tools.graph.distances
+import tools.graph.distancesFromOneToAll
 import tools.range.merge
 import tools.range.move
 import tools.range.size
@@ -79,7 +79,7 @@ class BPCE : BaseTest() {
             val (u, v) = it.split(" ").map(String::toInt)
             listOf(u to v, v to u)
         }.groupBy({ it.first }, { it.second }).mapValues { it.value.associateWith { 1.0 } }
-        val result = distances(n + 1, a) { neighbors[it].orEmpty() }.drop(1).withIndex()
+        val result = distancesFromOneToAll(n + 1, a) { neighbors[it].orEmpty() }.drop(1).withIndex()
             .groupBy({ it.value }, { it.index + 1 }).maxBy { it.key }.value.sorted().joinToString(" ")
         println(result)
     }
