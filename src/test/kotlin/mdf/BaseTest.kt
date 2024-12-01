@@ -1,6 +1,6 @@
 package mdf
 
-import generateFile
+import generate.generateFile
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.rules.TestName

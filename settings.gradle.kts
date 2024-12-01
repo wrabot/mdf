@@ -4,4 +4,3 @@ sourceControl {
         producesModule("wrabot.competitive:CompetitiveTools")
     }
 }
-include("generate")
